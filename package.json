@@ -1,0 +1,25 @@
+{
+	"name": "skb-crm",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "parcel src/index.html --open",
+		"build": "parcel build src/index.html",
+		"clean": "rm -rf node_modules dist .parcel-cache"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"devDependencies": {
+		"@parcel/transformer-sass": "^2.15.2",
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/postcss": "^4.1.10",
+		"@tailwindcss/typography": "^0.5.16",
+		"autoprefixer": "^10.4.21",
+		"parcel": "^2.15.2",
+		"postcss": "^8.5.5",
+		"sass": "^1.89.2",
+		"tailwindcss": "^4.1.10"
+	}
+}
