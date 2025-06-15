@@ -3,43 +3,313 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="./image/favicon/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./image/favicon/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="./image/favicon/favicon-16x16.png"
+		/>
+		<link
+			rel="mask-icon"
+			href="./image/favicon/safari-pinned-tab.svg"
+			color="#5bbad5"
+		/>
+		<meta name="msapplication-TileColor" content="#603cba" />
+		<meta name="theme-color" content="#ffffff" />
+
 		<title>CRM - система клиентов SkillBus</title>
 
+		<link rel="stylesheet" href="./styles/tailwind.css" />
 		<link rel="stylesheet" href="./styles/index.css" />
 
 		<script type="module" src="./index.js"></script>
 	</head>
-	<body class="bg-neutral-100 text-gray-900 font-sans">
-		<!-- Header -->
-		<header
-			class="bg-white shadow-lg px-6 py-4 flex items-center justify-center"
-		>
-			<a class="block" href="/">
-				<img class="" src="./image/logo.svg" alt="Логотип сайта" />
-			</a>
-			<form class="hidden">
-				<input class="" type="text" placeholder="Введите запрос" />
-			</form>
+	<body class="relative bg-neutral-100">
+		<header class="bg-white shadow-lg py-2 sm:py-6">
+			<div
+				class="w-full mx-auto px-2.5 flex items-center justify-center sm:px-5 md:justify-start md:gap-13 lg:w-246"
+			>
+				<a class="block outline-none" href="/">
+					<img
+						class="size-6 sm:size-12.5"
+						src="./image/logo.svg"
+						alt="Логотип сайта"
+					/>
+				</a>
+				<form class="hidden w-145 md:block" id="js-search-form">
+					<input
+						class="h-11 w-full px-4 border border-solid border-neutral-300 outline-none placeholder:text-neutral-400 transition-colors duration-300 ease-in-out focus-within:border-violet-500 focus:placeholder:opacity-0 lg:hover:not-focus-within:border-neutral-500"
+						type="text"
+						placeholder="Введите запрос"
+					/>
+				</form>
+			</div>
 		</header>
 
 		<!-- Main -->
 		<main class="pt-3.5">
-			<div class="container px-2.5">
-				<h1 class="font-sans font-bold text-2xl">Клиенты</h1>
-				<!-- Table Header Row -->
-				<!-- <div
-				class="grid grid-cols-6 gap-4 text-sm font-medium text-gray-600 border-b pb-2 mb-2"
-			>
-				<div>ID</div>
-				<div>А-Я</div>
-				<div>Дата и время создания</div>
-				<div>Последние изменения</div>
-				<div>Контакты</div>
-				<div>Действия</div>
-			</div> -->
+			<div class="w-full mx-auto px-2.5 lg:w-246">
+				<h1 class="font-bold text-xl sm:text-2xl md:mb-2.5">Клиенты</h1>
+				<div class="mx-auto">
+					<h2 class="mt-1.5 mb-5 font-light text-neutral-600 md:hidden">
+						Сортировать по:
+					</h2>
+					<ul
+						class="flex flex-col gap-3 md:grid md:grid-cols-[1fr_minmax(210px,_auto)_1fr_1fr_1fr_1fr]"
+					>
+						<li class="flex md:justify-center md:cursor-pointer">
+							<p
+								class="flex items-center font-light text-xs text-neutral-600 after:"
+							>
+								ID
+								<span class="text-violet-500">
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+										/>
+									</svg>
+								</span>
+							</p>
+						</li>
+						<li class="flex items-center md:justify-center md:cursor-pointer">
+							<p class="flex font-light text-xs text-neutral-600">
+								Фамилия Имя Отчество
+								<span
+									class="flex items-center w-max text-violet-500 flex items-center text-xs"
+								>
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+										/>
+									</svg>
+									А-Я</span
+								>
+							</p>
+						</li>
+						<li class="flex items-center md:justify-center md:cursor-pointer">
+							<p class="font-light text-xs text-neutral-600 text-balance">
+								Дата и время создания
+								<span class="inline-block text-violet-500">
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+										/>
+									</svg>
+								</span>
+							</p>
+						</li>
+						<li class="flex items-center md:justify-center md:cursor-pointer">
+							<p class="font-light text-xs text-neutral-600 text-balance">
+								Последние изменения
+								<span class="inline-block text-violet-500">
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+										/>
+									</svg>
+								</span>
+							</p>
+						</li>
+						<li class="hidden items-center md:justify-center md:flex">
+							<p class="font-light text-xs text-neutral-600">Контакты</p>
+						</li>
+						<li class="hidden items-center md:justify-center md:flex">
+							<p class="font-light text-xs text-neutral-600">Действия</p>
+						</li>
+					</ul>
+				</div>
+			</div>
 
-				<!-- Data Row Example (с белым фоном для контактов) -->
-				<!-- <div class="grid grid-cols-6 gap-4 items-center text-sm mb-4">
+			<div class="w-full mx-auto pt-3.75">
+				<ul id="js-mobile-list" class="md:hidden">
+					<li class="first:border-t solid border-neutral-300">
+						<div
+							class="px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
+						>
+							<p class="text-xs text-neutral-400">123455</p>
+							<p class="text-[14px]">Скворцов Денис Юрьевич</p>
+							<svg
+								class="text-violet-500 shrink-0"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
+								<path
+									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
+									fill="currentColor"
+								/>
+							</svg>
+						</div>
+
+						<ul class="p-3.75 text-[14px]">
+							<li class="flex items-center mb-3">
+								<p class="text-xs mr-2.5 text-neutral-400">
+									Дата и время создания
+								</p>
+								<p class="mr-2">21.02.2021</p>
+								<p class="text-neutral-400">12:41</p>
+							</li>
+							<li class="flex items-center mb-3">
+								<p class="text-xs mr-2.5 text-neutral-400">
+									Последние изменения
+								</p>
+								<p class="mr-2">21.02.2021</p>
+								<p class="text-neutral-400">14:50</p>
+							</li>
+							<li class="flex items-center mb-6">
+								<p class="text-xs mr-2.5 text-neutral-400">Контакты</p>
+								<ul class="flex items-center">
+									<li>vk</li>
+									<li>vk</li>
+									<li>vk</li>
+								</ul>
+							</li>
+							<li class="flex items-center gap-7.5">
+								<button class="flex items-center">
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 16 16"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
+											fill="#9873FF"
+										/>
+									</svg>
+									Изменить
+								</button>
+								<button class="flex items-center">
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 16 16"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
+											fill="#F06A4D"
+										/>
+									</svg>
+									Удалить
+								</button>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div
+							class="px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
+						>
+							<p class="text-xs text-neutral-400">123456</p>
+							<p class="text-[14px]">Куприянов Арсений Валерьевич</p>
+							<svg
+								class="text-violet-500 shrink-0"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
+								<path
+									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
+									fill="currentColor"
+								/>
+							</svg>
+						</div>
+					</li>
+					<li>
+						<div
+							class="px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
+						>
+							<p class="text-xs text-neutral-400">123457</p>
+							<p class="text-[14px]">
+								Константинопольская Людмила Александровна
+							</p>
+							<svg
+								class="text-violet-500 shrink-0"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
+								<path
+									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
+									fill="currentColor"
+								/>
+							</svg>
+						</div>
+					</li>
+					<li>
+						<div
+							class="px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
+						>
+							<p class="text-xs text-neutral-400">123458</p>
+							<p class="text-[14px]">Дмитриевский Олег Алексеевич</p>
+							<svg
+								class="text-violet-500 shrink-0"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
+								<path
+									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
+									fill="currentColor"
+								/>
+							</svg>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Data Row Example (с белым фоном для контактов) -->
+			<!-- <div class="grid grid-cols-6 gap-4 items-center text-sm mb-4">
 				<div>001</div>
 				<div>Иванов И.И.</div>
 				<div>2025-06-14 16:05</div>
@@ -54,15 +324,14 @@
 				</div>
 			</div> -->
 
-				<!-- Добавить клиента -->
-				<!-- <div class="mt-6">
-				<button
-					class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-				>
-					➕ Добавить клиента
-				</button>
-			</div> -->
-			</div>
+			<!-- Добавить клиента -->
+			<!-- <div class="mt-6">
+					<button
+						class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+					>
+						➕ Добавить клиента
+					</button>
+				</div> -->
 		</main>
 	</body>
 </html>

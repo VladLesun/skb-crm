@@ -1,9 +1,20 @@
 const plugin = require('tailwindcss/plugin');
+console.log('plugin: ', plugin);
 
 module.exports = {
 	content: ['./src/**/*.{html,js}'],
 	darkMode: 'class',
 	theme: {
+		container: {
+			center: true,
+			padding: '1rem',
+			screens: {
+				sm: '100%',
+				md: '100%',
+				lg: '100%',
+				xl: '100%',
+			},
+		},
 		extend: {
 			colors: {
 				primary: '#1E3A8A',
@@ -13,7 +24,7 @@ module.exports = {
 				neutral: '#F3F4F6',
 			},
 			fontFamily: {
-				sans: ['"Open Sans"', 'sans-serif', 'system-ui'],
+				sans: ['"Open Sans"', 'sans-serif'],
 			},
 			spacing: {
 				128: '32rem',

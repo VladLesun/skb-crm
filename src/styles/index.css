@@ -1,1 +1,11 @@
-@import 'tailwindcss';
+/* @import 'default'; */
+
+.sort-icon::after {
+	content: '';
+	display: block;
+	width: 8px;
+	height: 8px;
+	mask-image: url('../image/sort-arrow.svg');
+	color: oklch(60.6% 0.25 292.717);
+	transition: transform 0.3s ease-in-out;
+}
