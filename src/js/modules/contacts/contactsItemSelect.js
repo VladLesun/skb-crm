@@ -18,7 +18,7 @@ export const contactsItemSelect = (type, value) => {
 	contactsRemove.className =
 		'absolute top-0 right-0 w-[27px] h-[37px] flex items-center justify-center bg-[#e7e5eb] text-[#B0B0B0] border solid border-[#c8c5d1] shrink-0 hidden';
 
-	contactsInput.type = 'text'; //! после сделать меняющийся тип
+	contactsInput.type = 'number'; //! после сделать меняющийся тип
 	contactsInput.placeholder = 'Введите данные';
 
 	contactsRemove.type = 'button';
@@ -48,9 +48,21 @@ export const contactsItemSelect = (type, value) => {
 	contactsOptionVk.innerText = 'facebook';
 	contactsOptionOther.innerText = 'other';
 
-	// contactsSelect.addEventListener('change', () => {
-	// 	console.log('селект изменил значение');
-	// });
+	contactsSelect.addEventListener('change', () => {
+		switch (contactsSelect.value) {
+			case 'email':
+				contactsInput.type = 'email';
+				break;
+
+			case 'phone':
+				contactsInput.type = 'number';
+				break;
+
+			default:
+				contactsInput.type = 'text';
+				break;
+		}
+	});
 
 	contactsInput.addEventListener('input', () => {
 		if (contactsInput.value.trim() !== '') {
