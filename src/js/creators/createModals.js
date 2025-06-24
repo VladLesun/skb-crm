@@ -1,79 +1,7 @@
-import choicesMin from '../vars/choices.min';
+import { contactsItemSelect } from '../modules/contacts/contactsItemSelect';
 import { createInput } from './createInput';
 
-//! создание селектов для контактов
-const newContactItem = (type, value) => {
-	const contactsItem = document.createElement('li'),
-		contactsSelect = document.createElement('select'),
-		contactsOptionPhone = document.createElement('option'),
-		contactsOptionEmail = document.createElement('option'),
-		contactsOptionFacebook = document.createElement('option'),
-		contactsOptionVk = document.createElement('option'),
-		contactsOptionOther = document.createElement('option'),
-		contactsInput = document.createElement('input'),
-		contactsRemove = document.createElement('button');
-
-	//! Добить стили для контактов
-	contactsItem.className =
-		'flex items-center border solid border-neutral-600 bg-neutral-300/60';
-	contactsSelect.className = 'js-choice';
-	contactsInput.className = 'w-full h-full px-1 bg-neutral-100';
-	contactsRemove.className = 'shrink-0';
-
-	contactsInput.type = 'text'; //! после сделать меняющийся тип
-
-	contactsRemove.type = 'button';
-	contactsRemove.innerHTML = `
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 16 16"
-			fill="currentColor"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-			/>
-		</svg>
-	`;
-
-	contactsOptionPhone.value = 'phone';
-	contactsOptionEmail.value = 'email';
-	contactsOptionFacebook.value = 'vk';
-	contactsOptionVk.value = 'facebook';
-	contactsOptionOther.value = 'other';
-
-	contactsOptionPhone.innerText = 'Телефон';
-	contactsOptionEmail.innerText = 'Email';
-	contactsOptionFacebook.innerText = 'VK';
-	contactsOptionVk.innerText = 'facebook';
-	contactsOptionOther.innerText = 'other';
-
-	contactsSelect.append(
-		contactsOptionPhone,
-		contactsOptionEmail,
-		contactsOptionFacebook,
-		contactsOptionVk,
-		contactsOptionOther
-	);
-	contactsItem.append(contactsSelect, contactsInput, contactsRemove);
-
-	if (type) {
-		contactsSelect.value = type;
-	}
-
-	if (value) {
-		contactsInput.value = value;
-	}
-
-	new choicesMin(contactsSelect, {
-		searchEnabled: false,
-		itemSelectText: '',
-	});
-
-	return contactsItem;
-};
-
+//! в будущем переделать на одну функцию для всех модалок
 export const createAddModal = () => {
 	const modal = document.createElement('div'),
 		modalOverlay = document.createElement('div'),
@@ -100,7 +28,7 @@ export const createAddModal = () => {
 	formWrapInputs.className = 'flex flex-col gap-8 mb-6 px-3.75 md:px-7.5';
 	formWrapContacts.className = 'flex flex-col items-center mb-6 bg-neutral-200';
 	formContactsList.className =
-		'w-full flex flex-col gap-3.75 mb-6 px-3.75 md:px-7.5';
+		'w-full flex-col gap-3.75 mb-6 px-3.75 md:px-7.5 hidden';
 	formContactsAdd.className =
 		'w-40 h-9 flex items-center justify-center gap-1 text-[14px]';
 	formWrapActions.className = 'flex flex-col items-center justify-center';
@@ -109,6 +37,10 @@ export const createAddModal = () => {
 	formCancelBtn.className = 'underline text-xs text-neutral-500';
 	modalClose.className =
 		'absolute top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
+
+	formWrapContacts.id = 'contactsWrap';
+	formContactsList.id = 'contactsList';
+	formContactsAdd.id = 'contactsAdd';
 
 	formTitle.innerText = 'Новый клиент';
 	formContactsAdd.innerHTML = `
@@ -148,13 +80,22 @@ export const createAddModal = () => {
 	modalClose.type = 'button';
 
 	//! скрывать пустой лист с контактами
-	// if (formContactsList.length === 0) {
-	// 	console.log('КОнтакты пусты');
-	// }
 
-	formContactsAdd.addEventListener('click', () =>
-		formContactsList.append(newContactItem())
-	);
+	formContactsAdd.addEventListener('click', () => {
+		formContactsList.append(contactsItemSelect());
+
+		if (formContactsList.getElementsByTagName('li').length > 9) {
+			console.log('селектов уже 10 вы больше добавить не сможете');
+			formContactsAdd.classList.add('hidden');
+			return;
+		}
+
+		if (formContactsList.getElementsByTagName('li').length > 0) {
+			formWrapContacts.classList.add('py-6');
+			formContactsList.classList.remove('hidden');
+			formContactsList.classList.add('flex');
+		}
+	});
 
 	formWrapInputs.append(formInputSurname, formInputName, formInputLastName);
 	formWrapContacts.append(formContactsList, formContactsAdd);
