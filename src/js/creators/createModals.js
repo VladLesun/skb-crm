@@ -1,8 +1,9 @@
+import { contactsAdd } from '../modules/contacts/contactsAdd';
 import { contactsItemSelect } from '../modules/contacts/contactsItemSelect';
 import { createInput } from './createInput';
 
 //! в будущем переделать на одну функцию для всех модалок
-export const createAddModal = () => {
+export const createAddModal = ({ onSave, onClose }) => {
 	const modal = document.createElement('div'),
 		modalOverlay = document.createElement('div'),
 		modalClose = document.createElement('button'),
@@ -36,7 +37,7 @@ export const createAddModal = () => {
 		'w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]';
 	formCancelBtn.className = 'underline text-xs text-neutral-500';
 	modalClose.className =
-		'absolute top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
+		'modalClose absolute z-10 top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
 
 	formWrapContacts.id = 'contactsWrap';
 	formContactsList.id = 'contactsList';
@@ -85,7 +86,6 @@ export const createAddModal = () => {
 		formContactsList.append(contactsItemSelect());
 
 		if (formContactsList.getElementsByTagName('li').length > 9) {
-			console.log('селектов уже 10 вы больше добавить не сможете');
 			formContactsAdd.classList.add('hidden');
 			return;
 		}
@@ -94,6 +94,30 @@ export const createAddModal = () => {
 			formWrapContacts.classList.add('py-6');
 			formContactsList.classList.remove('hidden');
 			formContactsList.classList.add('flex');
+		}
+	});
+
+	modalForm.addEventListener('submit', e => {
+		e.preventDefault();
+
+		const formData = {
+			surname: formInputSurname.value.trim(),
+			name: formInputName.value.trim(),
+			lastName: formInputLastName.value.trim(),
+			contacts: contactsAdd(formContactsList),
+		};
+
+		onSave(formData, modal);
+		console.log('Форма отправлена');
+	});
+
+	document.body.addEventListener('click', ({ target }) => {
+		if (target.closest('.modalClose') || target === formCancelBtn) {
+			onClose(modal);
+		}
+
+		if (target === modal && target !== modalOverlay) {
+			onClose(modal);
 		}
 	});
 

@@ -102,6 +102,7 @@ export const contactsItemSelect = (type, value) => {
 	contactsItem.append(contactsSelect, contactsInput, contactsRemove);
 
 	if (type) {
+		//todo доработать, когда приходит с сервера пользователь с контактами
 		contactsSelect.value = type;
 	}
 
