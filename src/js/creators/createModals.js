@@ -2,13 +2,15 @@ import { contactsAdd } from '../modules/contacts/contactsAdd';
 import { contactsItemSelect } from '../modules/contacts/contactsItemSelect';
 import { createInput } from './createInput';
 
-//! в будущем переделать на одну функцию для всех модалок
-export const createAddModal = ({ onSave, onClose }) => {
+export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 	const modal = document.createElement('div'),
 		modalOverlay = document.createElement('div'),
 		modalClose = document.createElement('button'),
 		modalForm = document.createElement('form'),
+		formWrapTitle = document.createElement('div'),
 		formTitle = document.createElement('h2'),
+		formTitleID = document.createElement('p'),
+		formTitleConfirm = document.createElement('p'),
 		formWrapInputs = document.createElement('div'),
 		formInputSurname = createInput('surname', 'Фамилия*'),
 		formInputName = createInput('name', 'Имя*'),
@@ -18,32 +20,24 @@ export const createAddModal = ({ onSave, onClose }) => {
 		formContactsAdd = document.createElement('button'),
 		formWrapActions = document.createElement('div'),
 		formSaveBtn = document.createElement('button'),
-		formCancelBtn = document.createElement('button');
+		formCancelBtn = document.createElement('button'),
+		formRemoveBtn = document.createElement('button');
 
 	modal.className =
-		'w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden';
+		'w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden cursor-pointer';
 	modalOverlay.className =
-		'fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto';
+		'fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto cursor-auto';
+	modalClose.className =
+		'modalClose absolute z-10 top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
 	modalForm.className = 'py-6';
-	formTitle.className = 'ml-3.75 mb-8 text-lg font-bold md:ml-7.5';
-	formWrapInputs.className = 'flex flex-col gap-8 mb-6 px-3.75 md:px-7.5';
-	formWrapContacts.className = 'flex flex-col items-center mb-6 bg-neutral-200';
-	formContactsList.className =
-		'w-full flex-col gap-3.75 mb-6 px-3.75 md:px-7.5 hidden';
-	formContactsAdd.className =
-		'w-40 h-9 flex items-center justify-center gap-1 text-[14px]';
+	formTitle.className = 'text-lg font-bold';
+	formTitleConfirm.className = 'w-68 text-xs text-neutral-400 text-center';
 	formWrapActions.className = 'flex flex-col items-center justify-center';
 	formSaveBtn.className =
 		'w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]';
 	formCancelBtn.className = 'underline text-xs text-neutral-500';
-	modalClose.className =
-		'modalClose absolute z-10 top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
+	formRemoveBtn.className = 'underline text-xs text-neutral-500';
 
-	formWrapContacts.id = 'contactsWrap';
-	formContactsList.id = 'contactsList';
-	formContactsAdd.id = 'contactsAdd';
-
-	formTitle.innerText = 'Новый клиент';
 	formContactsAdd.innerHTML = `
 		<svg
 			class='text-violet-500'
@@ -59,6 +53,7 @@ export const createAddModal = ({ onSave, onClose }) => {
 	`;
 	formSaveBtn.innerText = 'Сохранить';
 	formCancelBtn.innerText = 'Отмена';
+	formRemoveBtn.innerText = 'Удалить клиента';
 	modalClose.innerHTML = `
 		<svg
 			width='17'
@@ -80,38 +75,7 @@ export const createAddModal = ({ onSave, onClose }) => {
 	formCancelBtn.type = 'button';
 	modalClose.type = 'button';
 
-	//! скрывать пустой лист с контактами
-
-	formContactsAdd.addEventListener('click', () => {
-		formContactsList.append(contactsItemSelect());
-
-		if (formContactsList.getElementsByTagName('li').length > 9) {
-			formContactsAdd.classList.add('hidden');
-			return;
-		}
-
-		if (formContactsList.getElementsByTagName('li').length > 0) {
-			formWrapContacts.classList.add('py-6');
-			formContactsList.classList.remove('hidden');
-			formContactsList.classList.add('flex');
-		}
-	});
-
-	modalForm.addEventListener('submit', e => {
-		e.preventDefault();
-
-		const formData = {
-			surname: formInputSurname.value.trim(),
-			name: formInputName.value.trim(),
-			lastName: formInputLastName.value.trim(),
-			contacts: contactsAdd(formContactsList),
-		};
-
-		onSave(formData, modal);
-		console.log('Форма отправлена');
-	});
-
-	document.body.addEventListener('click', ({ target }) => {
+	const handleModalClose = ({ target }) => {
 		if (target.closest('.modalClose') || target === formCancelBtn) {
 			onClose(modal);
 		}
@@ -119,19 +83,131 @@ export const createAddModal = ({ onSave, onClose }) => {
 		if (target === modal && target !== modalOverlay) {
 			onClose(modal);
 		}
-	});
 
-	formWrapInputs.append(formInputSurname, formInputName, formInputLastName);
-	formWrapContacts.append(formContactsList, formContactsAdd);
-	formWrapActions.append(formSaveBtn, formCancelBtn);
-	modalForm.append(
-		formTitle,
-		formWrapInputs,
-		formWrapContacts,
-		formWrapActions
-	);
-	modalOverlay.append(modalForm, modalClose);
-	modal.append(modalOverlay);
+		if (target === formRemoveBtn) {
+			onClose(modal);
+			document.body.append(removeModal());
+		}
+	};
 
-	return modal;
+	document.body.addEventListener('click', handleModalClose);
+
+	if (client === null || typeof client === 'object') {
+		formWrapTitle.className = 'flex items-center gap-3 mx-3.5 mb-8 md:mx-7.5';
+		formTitleID.className = 'text-xs text-neutral-400';
+		formWrapInputs.className = 'flex flex-col gap-8 mb-6 px-3.75 md:px-7.5';
+		formWrapContacts.className =
+			'flex flex-col items-center mb-6 bg-neutral-200';
+		formContactsList.className =
+			'w-full flex-col gap-3.75 mb-6 px-3.75 md:px-7.5 hidden';
+		formContactsAdd.className =
+			'w-40 h-9 flex items-center justify-center gap-1 text-[14px]';
+
+		formWrapContacts.id = 'contactsWrap';
+		formContactsList.id = 'contactsList';
+		formContactsAdd.id = 'contactsAdd';
+
+		const handlerContactAdd = () => {
+			formContactsList.append(contactsItemSelect());
+
+			if (formContactsList.getElementsByTagName('li').length > 9) {
+				formContactsAdd.classList.add('hidden');
+				return;
+			}
+
+			if (formContactsList.getElementsByTagName('li').length > 0) {
+				formWrapContacts.classList.add('py-6');
+				formContactsList.classList.remove('hidden');
+				formContactsList.classList.add('flex');
+			}
+		};
+
+		formContactsAdd.addEventListener('click', handlerContactAdd);
+
+		formWrapInputs.append(formInputSurname, formInputName, formInputLastName);
+		formWrapContacts.append(formContactsList, formContactsAdd);
+		modalForm.append(
+			formWrapTitle,
+			formWrapInputs,
+			formWrapContacts,
+			formWrapActions
+		);
+		modalOverlay.append(modalForm, modalClose);
+		modal.append(modalOverlay);
+
+		if (client === null) {
+			console.log('Создание нового клиента');
+			formTitle.innerText = 'Новый клиент';
+
+			const handleClientAdd = e => {
+				e.preventDefault();
+
+				const surname = formInputSurname.value.trim(),
+					name = formInputName.value.trim(),
+					lastName = formInputLastName.value.trim();
+
+				const formData = {
+					surname,
+					name,
+					lastName,
+					fullName: `${surname} ${name} ${lastName}`,
+					contacts: contactsAdd(formContactsList),
+				};
+
+				onSave(formData, modal);
+			};
+
+			modalForm.addEventListener('submit', handleClientAdd);
+
+			formWrapTitle.append(formTitle);
+			formWrapActions.append(formSaveBtn, formCancelBtn);
+		} else {
+			const { id, surname, name, lastName, contacts } = client;
+
+			console.log('Изменение клиента', client);
+			formTitle.innerText = 'Изменить данные';
+			formTitleID.innerText = `ID: ${id}`;
+			formInputSurname.value = surname;
+			formInputName.value = name;
+			formInputLastName.value = lastName;
+
+			formWrapTitle.append(formTitle, formTitleID);
+			formWrapActions.append(formSaveBtn, formRemoveBtn);
+
+			contacts.map(({ type, value }) => {
+				formContactsList.append(contactsItemSelect(type, value));
+
+				if (formContactsList.getElementsByTagName('li').length) {
+					formWrapContacts.classList.add('py-6');
+					formContactsList.classList.remove('hidden');
+					formContactsList.classList.add('flex');
+				}
+			});
+		}
+
+		return modal;
+	} else {
+		console.log('Модалка удаления');
+		formWrapTitle.className = 'flex flex-col items-center gap-2 mb-6';
+
+		formTitle.innerText = 'Удалить клиента';
+		formTitleConfirm.innerText =
+			'Вы действительно хотите удалить данного клиента?';
+
+		const handleClientRemove = e => {
+			e.preventDefault();
+
+			onSave(client, modal);
+		};
+
+		modalForm.addEventListener('submit', handleClientRemove);
+
+		formWrapTitle.append(formTitle, formTitleConfirm);
+		formWrapActions.append(formSaveBtn, formCancelBtn);
+		modalForm.append(formWrapTitle, formWrapActions);
+		modalOverlay.append(modalForm, modalClose);
+		modal.append(modalOverlay);
+
+		return modal;
+	}
 };

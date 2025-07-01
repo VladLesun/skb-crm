@@ -18,7 +18,7 @@ export const contactsItemSelect = (type, value) => {
 	contactsRemove.className =
 		'absolute top-0 right-0 w-[27px] h-[37px] flex items-center justify-center bg-[#e7e5eb] text-[#B0B0B0] border solid border-[#c8c5d1] shrink-0 hidden';
 
-	contactsInput.type = 'number'; //! после сделать меняющийся тип
+	contactsInput.type = 'number';
 	contactsInput.placeholder = 'Введите данные';
 
 	contactsRemove.type = 'button';
@@ -102,11 +102,11 @@ export const contactsItemSelect = (type, value) => {
 	contactsItem.append(contactsSelect, contactsInput, contactsRemove);
 
 	if (type) {
-		//todo доработать, когда приходит с сервера пользователь с контактами
 		contactsSelect.value = type;
 	}
 
 	if (value) {
+		contactsInput.type = type;
 		contactsInput.value = value;
 	}
 

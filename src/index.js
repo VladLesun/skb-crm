@@ -1,35 +1,41 @@
-import { createAddModal } from './js/creators/createModals';
+import { createModalsWithForm } from './js/creators/createModals';
 import { renderClientList } from './js/renderClient/renderClient';
 import { renderMobileClientList } from './js/renderClient/renderMobileClientList';
 import { addClient, getClients } from './js/servers/servers';
 import { addClientBtnNode } from './js/vars/const';
 
-let clientData = [];
+export let clientList = [];
 
 const init = async () => {
-	clientData = await getClients();
+	const serverData = await getClients();
 
-	renderMobileClientList(clientData);
-	renderClientList(clientData);
+	if (serverData) {
+		clientList = serverData;
+	}
 
-	const onSave = async (formData, modalElement) => {
-		const newClient = await addClient(formData);
-		clientData.push(newClient);
+	renderMobileClientList(clientList);
+	renderClientList(clientList);
 
-		clientData = await getClients();
-		renderMobileClientList(clientData);
-		renderClientList(clientData);
+	const handleModalClientAdd = () => {
+		const onSave = async (formData, modalElement) => {
+			const newClient = await addClient(formData);
+			clientList.push(newClient);
 
-		modalElement.remove();
+			clientList = await getClients();
+			renderMobileClientList(clientList);
+			renderClientList(clientList);
+
+			modalElement.remove();
+		};
+
+		const onClose = modalElement => {
+			modalElement.remove();
+		};
+
+		document.body.append(createModalsWithForm({ onSave, onClose }));
 	};
 
-	const onClose = modalElement => {
-		modalElement.remove();
-	};
-
-	addClientBtnNode.addEventListener('click', () => {
-		document.body.append(createAddModal({ onSave, onClose }));
-	});
+	addClientBtnNode.addEventListener('click', handleModalClientAdd);
 };
 
 init();

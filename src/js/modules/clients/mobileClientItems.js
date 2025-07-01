@@ -1,3 +1,8 @@
+import { clientList } from '../../..';
+import { createModalsWithForm } from '../../creators/createModals';
+import { renderClientList } from '../../renderClient/renderClient';
+import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
+import { removeClient } from '../../servers/servers';
 import { formatDate } from '../../utils/formatDate';
 import { formatTime } from '../../utils/formatTime';
 import { contactItem } from '../contacts/contactItem';
@@ -104,6 +109,43 @@ export const mobileClientItems = clientData =>
 				</svg>
 				Удалить
 			`;
+
+			const handleModalClientChange = () => {
+				const onSave = async (formData, modalElement) => {
+					// const newClient = await addClient(formData);
+					// clientData.push(newClient);
+					// clientData = await getClients();
+					// renderMobileClientList(clientData);
+					// renderClientList(clientData);
+					// modalElement.remove();
+				};
+
+				const onClose = modalElement => {
+					modalElement.remove();
+				};
+
+				document.body.append(createModalsWithForm({ onSave, onClose }, client));
+			};
+
+			const handleModalClientRemove = () => {
+				const onSave = async (id, modalElement) => {
+					await removeClient(id);
+					const newClientList = clientList.filter(client => client.id !== id);
+					renderClientList(newClientList);
+					renderMobileClientList(newClientList);
+					modalElement.remove();
+				};
+
+				const onClose = modalElement => {
+					modalElement.remove();
+				};
+
+				document.body.append(createModalsWithForm({ onSave, onClose }, id));
+			};
+
+			itemActionChangeBtn.addEventListener('click', handleModalClientChange);
+
+			itemActionRemoveBtn.addEventListener('click', handleModalClientRemove);
 
 			itemTop.append(itemId, itemName, itemTabBtn);
 			itemCreateAt.append(

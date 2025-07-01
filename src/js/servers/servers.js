@@ -31,3 +31,19 @@ export const addClient = async data => {
 		console.error(error.message);
 	}
 };
+
+export const removeClient = async id => {
+	try {
+		const res = await fetch(`${API_URL}/api/clients/${id}`, {
+			method: 'DELETE',
+		});
+
+		if (!res.ok) {
+			throw new Error('Не удалось удалить клиента...');
+		}
+
+		return await res.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+};
