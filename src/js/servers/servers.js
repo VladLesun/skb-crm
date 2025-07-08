@@ -47,3 +47,21 @@ export const removeClient = async id => {
 		console.error(error.message);
 	}
 };
+
+export const changeClient = async (id, data) => {
+	try {
+		const res = await fetch(`${API_URL}/api/clients/${id}`, {
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data),
+		});
+
+		if (!res.ok) {
+			throw new Error('Не удалось изменить данные клиента...');
+		}
+
+		return await res.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+};

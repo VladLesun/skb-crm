@@ -1,11 +1,9 @@
-import { clientList } from '../../..';
-import { createModalsWithForm } from '../../creators/createModals';
-import { renderClientList } from '../../renderClient/renderClient';
-import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
-import { removeClient } from '../../servers/servers';
+import { fio } from '../../utils/fio';
 import { formatDate } from '../../utils/formatDate';
 import { formatTime } from '../../utils/formatTime';
 import { contactItem } from '../contacts/contactItem';
+import { handleModalClientChange } from '../handlers/handleModalClientChange';
+import { handleModalClientRemove } from '../handlers/handleModalClientRemove';
 
 export const desktopClientItems = clientData =>
 	clientData.map(client => {
@@ -54,7 +52,7 @@ export const desktopClientItems = clientData =>
 			'flex items-center text-[14px] md:self-start lg:self-center';
 
 		itemId.innerText = id;
-		itemName.innerText = `${surname} ${name} ${lastName}`;
+		itemName.innerText = fio(client);
 		itemCreateAtDate.innerText = formatDate(createdAt);
 		itemCreateAtTime.innerText = formatTime(createdAt);
 		itemUpdateAtDate.innerText = formatDate(updatedAt);
@@ -90,42 +88,15 @@ export const desktopClientItems = clientData =>
 			Удалить
 		`;
 
-		const handleModalClientChange = () => {
-			const onSave = async (formData, modalElement) => {
-				// const newClient = await addClient(formData);
-				// clientData.push(newClient);
-				// clientData = await getClients();
-				// renderMobileClientList(clientData);
-				// renderClientList(clientData);
-				// modalElement.remove();
-			};
+		document.body.addEventListener('click', ({ target }) => {
+			if (target === itemActionChangeBtn) {
+				handleModalClientChange(client);
+			}
 
-			const onClose = modalElement => {
-				modalElement.remove();
-			};
-
-			document.body.append(createModalsWithForm({ onSave, onClose }, client));
-		};
-
-		const handleModalClientRemove = () => {
-			const onSave = async (id, modalElement) => {
-				await removeClient(id);
-				const newClientList = clientList.filter(client => client.id !== id);
-				renderClientList(newClientList);
-				renderMobileClientList(newClientList);
-				modalElement.remove();
-			};
-
-			const onClose = modalElement => {
-				modalElement.remove();
-			};
-
-			document.body.append(createModalsWithForm({ onSave, onClose }, id));
-		};
-
-		itemActionChangeBtn.addEventListener('click', handleModalClientChange);
-
-		itemActionRemoveBtn.addEventListener('click', handleModalClientRemove);
+			if (target === itemActionRemoveBtn) {
+				handleModalClientRemove(id);
+			}
+		});
 
 		itemIdWrap.append(itemId);
 		itemNameWrap.append(itemName);

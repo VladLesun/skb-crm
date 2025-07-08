@@ -69,80 +69,91 @@
 					<ul
 						class="flex flex-col gap-3 md:gap-1 md:grid md:grid-cols-[80px_218px_98px_98px_129px_auto] md:items-end lg:grid-cols-[90px_234px_152px_152px_148px_auto]"
 					>
-						<li class="flex md:justify-center md:cursor-pointer">
-							<p class="flex items-center font-light text-xs text-neutral-300">
-								ID
-								<span class="text-violet-500">
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 12 12"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
-										/>
-									</svg>
-								</span>
-							</p>
+						<li class="flex md:justify-center">
+							<button
+								data-sort="id"
+								class="sort-btn sort-btn_active sort-btn_svg"
+							>
+								<p class="flex items-center font-light text-xs">
+									ID
+									<span class="text-violet-500">
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+											/>
+										</svg>
+									</span>
+								</p>
+							</button>
 						</li>
-						<li class="flex items-center md:justify-start md:cursor-pointer">
-							<p class="flex font-light text-xs text-neutral-300">
-								Фамилия Имя Отчество
-								<span
-									class="flex items-center w-max text-violet-500 flex items-center text-xs"
-								>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 12 12"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
+						<li class="flex items-center md:justify-start">
+							<button data-sort="fio" class="sort-btn">
+								<p class="flex font-light text-xs">
+									Фамилия Имя Отчество
+									<span
+										class="flex items-center w-max text-violet-500 flex items-center text-xs"
 									>
-										<path
-											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
-										/>
-									</svg>
-									А-Я</span
-								>
-							</p>
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+											/>
+										</svg>
+										А-Я
+									</span>
+								</p>
+							</button>
 						</li>
-						<li class="flex items-center md:justify-start md:cursor-pointer">
-							<p class="w-26 font-light text-xs text-neutral-300 text-balance">
-								Дата и время создания
-								<span class="inline-block text-violet-500">
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 12 12"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
-										/>
-									</svg>
-								</span>
-							</p>
+						<li class="flex items-center md:justify-start">
+							<button data-sort="createdAt" class="sort-btn">
+								<p class="font-light text-xs text-balance md:w-26">
+									Дата и время создания
+									<span class="inline-block text-violet-500">
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+											/>
+										</svg>
+									</span>
+								</p>
+							</button>
 						</li>
-						<li class="flex items-center md:justify-start md:cursor-pointer">
-							<p class="w-26 font-light text-xs text-neutral-300 text-balance">
-								Последние изменения
-								<span class="inline-block text-violet-500">
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 12 12"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
-										/>
-									</svg>
-								</span>
-							</p>
+						<li class="flex items-center md:justify-start">
+							<button data-sort="updatedAt" class="sort-btn">
+								<p class="font-light text-xs text-balance md:w-26">
+									Последние изменения
+									<span class="inline-block text-violet-500">
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z"
+											/>
+										</svg>
+									</span>
+								</p>
+							</button>
 						</li>
 						<li class="hidden items-center md:justify-start md:flex">
 							<p class="font-light text-xs text-neutral-300">Контакты</p>
@@ -157,489 +168,9 @@
 			<div
 				class="w-full bg-white mx-auto mt-3.75 md:w-187 md:h-75 lg:w-246 lg:px-0"
 			>
-				<ul id="js-mobile-list" class="overflow-y-auto h-70 md:hidden">
-					<!-- <li class="first:border-t solid border-neutral-300">
-						<div
-							class="h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
-						>
-							<p class="text-xs text-neutral-300">123455</p>
-							<p class="text-center text-[14px]">Скворцов Денис Юрьевич</p>
-							<svg
-								class="text-violet-500 shrink-0"
-								width="20"
-								height="20"
-								viewBox="0 0 20 20"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
-								<path
-									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</div>
+				<ul id="js-mobile-list" class="overflow-y-auto h-70 md:hidden"></ul>
 
-						<ul class="bg-neutral-100 p-3.75 text-[14px]">
-							<li class="flex items-center mb-3">
-								<p class="text-xs mr-2.5 text-neutral-300">
-									Дата и время создания
-								</p>
-								<p class="mr-2">21.02.2021</p>
-								<p class="text-neutral-300">12:41</p>
-							</li>
-							<li class="flex items-center mb-3">
-								<p class="text-xs mr-2.5 text-neutral-300">
-									Последние изменения
-								</p>
-								<p class="mr-2">21.02.2021</p>
-								<p class="text-neutral-300">14:50</p>
-							</li>
-							<li class="flex items-center mb-6">
-								<p class="text-xs mr-2.5 text-neutral-300">Контакты</p>
-								<ul class="flex items-center gap-2">
-									<li>vk</li>
-									<li>vk</li>
-									<li>vk</li>
-								</ul>
-							</li>
-							<li class="flex items-center gap-7.5">
-								<button id="js-change-client" class="flex items-center">
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 16 16"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-											fill="#9873FF"
-										/>
-									</svg>
-									Изменить
-								</button>
-								<button id="js-remove-client" class="flex items-center">
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 16 16"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-											fill="#F06A4D"
-										/>
-									</svg>
-									Удалить
-								</button>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<div
-							class="h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
-						>
-							<p class="text-xs text-neutral-400">123456</p>
-							<p class="text-center text-[14px]">
-								Куприянов Арсений Валерьевич
-							</p>
-							<svg
-								class="text-violet-500 shrink-0"
-								width="20"
-								height="20"
-								viewBox="0 0 20 20"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
-								<path
-									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</div>
-					</li>
-					<li>
-						<div
-							class="h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
-						>
-							<p class="text-xs text-neutral-400">123457</p>
-							<p class="text-center text-[14px]">
-								Константинопольская Людмила Александровна
-							</p>
-							<svg
-								class="text-violet-500 shrink-0"
-								width="20"
-								height="20"
-								viewBox="0 0 20 20"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
-								<path
-									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</div>
-					</li>
-					<li>
-						<div
-							class="h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white"
-						>
-							<p class="text-xs text-neutral-400">123458</p>
-							<p class="text-center text-[14px]">
-								Дмитриевский Олег Алексеевич
-							</p>
-							<svg
-								class="text-violet-500 shrink-0"
-								width="20"
-								height="20"
-								viewBox="0 0 20 20"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<circle cx="10" cy="10" r="9.5" stroke="currentColor" />
-								<path
-									d="M14 10L13.295 9.295L10.5 12.085V6L9.5 6V12.085L6.71 9.29L6 10L10 14L14 10Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</div>
-					</li> -->
-				</ul>
-
-				<ul id="js-list" class="hidden overflow-y-auto h-75 md:block">
-					<!-- <li
-						class="h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300"
-					>
-						<div class="flex items-center justify-center">
-							<p class="text-xs text-neutral-300 ">123455</p>
-						</div>
-						<div class="flex items-center justify-start">
-							<p class="text-[14px]">Скворцов Денис Юрьевич</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p
-								class="text-[14px] text-neutral-300 md:self-start lg:self-center"
-							>
-								12:41
-							</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p
-								class="text-[14px] text-neutral-300 md:self-start lg:self-center"
-							>
-								14:50
-							</p>
-						</div>
-						<ul class="flex items-center justify-start gap-2.5">
-							<li>vk</li>
-							<li>vk</li>
-							<li>vk</li>
-						</ul>
-						<div
-							class="flex flex-col items-center justify-center gap-1 lg:flex-row lg:justify-start lg:gap-3"
-						>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-										fill="#9873FF"
-									/>
-								</svg>
-								Изменить
-							</button>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										fill="#F06A4D"
-									/>
-								</svg>
-								Удалить
-							</button>
-						</div>
-					</li>
-					<li
-						class="h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300"
-					>
-						<div class="flex items-center justify-center">
-							<p class="text-xs text-neutral-400">123456</p>
-						</div>
-						<div class="flex items-center justify-start">
-							<p class="text-[14px]">Куприянов Арсений Валерьевич</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">12:41</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">14:50</p>
-						</div>
-						<ul class="flex items-center justify-start gap-2.5">
-							<li>vk</li>
-							<li>vk</li>
-							<li>vk</li>
-						</ul>
-						<div class="flex flex-col items-center gap-1 lg:flex-row lg:gap-3">
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-										fill="#9873FF"
-									/>
-								</svg>
-								Изменить
-							</button>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										fill="#F06A4D"
-									/>
-								</svg>
-								Удалить
-							</button>
-						</div>
-					</li>
-					<li
-						class="h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300"
-					>
-						<div class="flex items-center justify-center">
-							<p class="text-xs text-neutral-400">123457</p>
-						</div>
-						<div class="flex items-center justify-start">
-							<p class="text-[14px]">
-								Константинопольская Людмила Александровна
-							</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">12:41</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">14:50</p>
-						</div>
-						<ul class="flex items-center justify-start gap-2.5">
-							<li>vk</li>
-							<li>vk</li>
-							<li>vk</li>
-						</ul>
-						<div class="flex flex-col items-center gap-1 lg:flex-row lg:gap-3">
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-										fill="#9873FF"
-									/>
-								</svg>
-								Изменить
-							</button>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										fill="#F06A4D"
-									/>
-								</svg>
-								Удалить
-							</button>
-						</div>
-					</li>
-					<li
-						class="h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300"
-					>
-						<div class="flex items-center justify-center">
-							<p class="text-xs text-neutral-400">123458</p>
-						</div>
-						<div class="flex items-center justify-start">
-							<p class="text-[14px]">Дмитриевский Олег Алексеевич</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">12:41</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">14:50</p>
-						</div>
-						<ul class="flex items-center justify-start gap-2.5">
-							<li>vk</li>
-							<li>vk</li>
-							<li>vk</li>
-						</ul>
-						<div class="flex flex-col items-center gap-1 lg:flex-row lg:gap-3">
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-										fill="#9873FF"
-									/>
-								</svg>
-								Изменить
-							</button>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										fill="#F06A4D"
-									/>
-								</svg>
-								Удалить
-							</button>
-						</div>
-					</li>
-					<li
-						class="h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300"
-					>
-						<div class="flex items-center justify-center">
-							<p class="text-xs text-neutral-400">123459</p>
-						</div>
-						<div class="flex items-center justify-start">
-							<p class="text-[14px]">Александрова Татьяна Павловна</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">12:41</p>
-						</div>
-						<div
-							class="flex flex-col items-center justify-center lg:flex-row lg:gap-2.5"
-						>
-							<p class="text-[14px] md:self-start lg:self-center">21.02.2021</p>
-							<p class="text-[14px] md:self-start lg:self-center">14:50</p>
-						</div>
-						<ul class="flex items-center justify-start gap-2.5">
-							<li>vk</li>
-							<li>vk</li>
-							<li>vk</li>
-						</ul>
-						<div class="flex flex-col items-center gap-1 lg:flex-row lg:gap-3">
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M2 11.5002V14.0002H4.5L11.8733 6.62687L9.37333 4.12687L2 11.5002ZM13.8067 4.69354C14.0667 4.43354 14.0667 4.01354 13.8067 3.75354L12.2467 2.19354C11.9867 1.93354 11.5667 1.93354 11.3067 2.19354L10.0867 3.41354L12.5867 5.91354L13.8067 4.69354Z"
-										fill="#9873FF"
-									/>
-								</svg>
-								Изменить
-							</button>
-							<button
-								class="flex items-center text-[14px] md:self-start lg:self-center"
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										fill="#F06A4D"
-									/>
-								</svg>
-								Удалить
-							</button>
-						</div>
-					</li> -->
-				</ul>
+				<ul id="js-list" class="hidden overflow-y-auto h-75 md:block"></ul>
 			</div>
 
 			<div class="flex justify-center mt-10 pb-10">
@@ -662,286 +193,5 @@
 				</button>
 			</div>
 		</main>
-
-		<!-- ! add modal -->
-		<!-- <div
-			id="js-add-popup"
-			class="hidden w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden"
-		>
-			<div class="fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto">
-				<form class="py-6">
-					<h2 class="ml-3.75 mb-8 text-lg font-bold md:ml-7.5">Новый клиент</h2>
-					<div class="flex flex-col gap-8 mb-6 px-3.75 md:px-7.5">
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="lastname"
-								placeholder="Фамилия*"
-							/>
-						</label>
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="name"
-								placeholder="Имя*"
-							/>
-						</label>
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="middlename"
-								placeholder="Отчество"
-							/>
-						</label>
-					</div>
-					<div class="flex flex-col items-center mb-6 bg-neutral-200">
-						<ul
-							class="hidden w-full flex flex-col gap-3.75 mb-6 px-3.75 md:px-7.5"
-						></ul>
-						<button
-							class="w-40 h-9 flex items-center justify-center gap-1 text-[14px]"
-							type="button"
-						>
-							<svg
-								class="text-violet-500"
-								width="16"
-								height="16"
-								viewBox="0 0 16 16"
-								fill="currentColor"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M7.99992 4.66659C7.63325 4.66659 7.33325 4.96659 7.33325 5.33325V7.33325H5.33325C4.96659 7.33325 4.66659 7.63325 4.66659 7.99992C4.66659 8.36659 4.96659 8.66659 5.33325 8.66659H7.33325V10.6666C7.33325 11.0333 7.63325 11.3333 7.99992 11.3333C8.36659 11.3333 8.66659 11.0333 8.66659 10.6666V8.66659H10.6666C11.0333 8.66659 11.3333 8.36659 11.3333 7.99992C11.3333 7.63325 11.0333 7.33325 10.6666 7.33325H8.66659V5.33325C8.66659 4.96659 8.36659 4.66659 7.99992 4.66659ZM7.99992 1.33325C4.31992 1.33325 1.33325 4.31992 1.33325 7.99992C1.33325 11.6799 4.31992 14.6666 7.99992 14.6666C11.6799 14.6666 14.6666 11.6799 14.6666 7.99992C14.6666 4.31992 11.6799 1.33325 7.99992 1.33325ZM7.99992 13.3333C5.05992 13.3333 2.66659 10.9399 2.66659 7.99992C2.66659 5.05992 5.05992 2.66659 7.99992 2.66659C10.9399 2.66659 13.3333 5.05992 13.3333 7.99992C13.3333 10.9399 10.9399 13.3333 7.99992 13.3333Z"
-								/>
-							</svg>
-							Добавить контакт
-						</button>
-					</div>
-					<div class="flex flex-col items-center justify-center">
-						<button
-							class="w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]"
-							type="submit"
-						>
-							Сохранить
-						</button>
-						<button class="underline text-xs text-neutral-500" type="button">
-							Отмена
-						</button>
-					</div>
-					<button
-						class="absolute top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4"
-						type="button"
-					>
-						<svg
-							width="17"
-							height="17"
-							viewBox="0 0 17 17"
-							fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M16.2333 1.73333L15.2667 0.766664L8.49997 7.53336L1.7333 0.766696L0.766637 1.73336L7.5333 8.50003L0.766664 15.2667L1.73333 16.2333L8.49997 9.46669L15.2666 16.2334L16.2333 15.2667L9.46663 8.50003L16.2333 1.73333Z"
-							/>
-						</svg>
-					</button>
-				</form>
-			</div>
-		</div> -->
-
-		<!-- ! change modal -->
-		<!-- <div
-			id="js-change-popup"
-			class="hidden w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden"
-		>
-			<div class="fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto">
-				<form class="py-6">
-					<div class="flex items-center gap-3 mx-3.5 mb-8 md:mx-7.5">
-						<h2 class="text-lg font-bold">Изменить данные</h2>
-						<p class="text-xs text-neutral-400">ID: <span>123458</span></p>
-					</div>
-					<div class="flex flex-col gap-8 mb-6 px-3.75 md:px-7.5">
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="lastname"
-								placeholder="Фамилия*"
-							/>
-						</label>
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="name"
-								placeholder="Имя*"
-							/>
-						</label>
-						<label>
-							<input
-								class="w-full h-6 border-b solid border-neutral-300 text-[14px] outline-0"
-								type="text"
-								name="middlename"
-								placeholder="Отчество"
-							/>
-						</label>
-					</div>
-					<div class="flex flex-col items-center mb-6 bg-neutral-200">
-						<ul class="w-full flex flex-col gap-3.75 mb-6 px-3.75 md:px-7.5">
-							<li
-								class="flex items-center border solid border-neutral-600 bg-neutral-300/60"
-							>
-								<select>
-									<option value="phone">Телефон</option>
-									<option value="vk">vk</option>
-									<option value="facebook">facebook</option>
-								</select>
-								<input
-									class="w-full px-1 border-l border-r solid border-neutral-600 bg-neutral-100"
-									type="text"
-									name=""
-								/>
-								<button type="button">
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 16 16"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										/>
-									</svg>
-								</button>
-							</li>
-							<li
-								class="flex items-center border solid border-neutral-600 bg-neutral-300/60"
-							>
-								<select>
-									<option value="phone">Телефон</option>
-									<option value="vk">vk</option>
-									<option value="facebook">facebook</option>
-								</select>
-								<input
-									class="w-full px-1 border-l border-r solid border-neutral-600 bg-neutral-100"
-									type="text"
-									name=""
-								/>
-								<button type="button">
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 16 16"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z"
-										/>
-									</svg>
-								</button>
-							</li>
-						</ul>
-						<button
-							class="w-40 h-9 flex items-center justify-center gap-1 text-[14px]"
-							type="button"
-						>
-							<svg
-								class="text-violet-500"
-								width="16"
-								height="16"
-								viewBox="0 0 16 16"
-								fill="currentColor"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M7.99992 4.66659C7.63325 4.66659 7.33325 4.96659 7.33325 5.33325V7.33325H5.33325C4.96659 7.33325 4.66659 7.63325 4.66659 7.99992C4.66659 8.36659 4.96659 8.66659 5.33325 8.66659H7.33325V10.6666C7.33325 11.0333 7.63325 11.3333 7.99992 11.3333C8.36659 11.3333 8.66659 11.0333 8.66659 10.6666V8.66659H10.6666C11.0333 8.66659 11.3333 8.36659 11.3333 7.99992C11.3333 7.63325 11.0333 7.33325 10.6666 7.33325H8.66659V5.33325C8.66659 4.96659 8.36659 4.66659 7.99992 4.66659ZM7.99992 1.33325C4.31992 1.33325 1.33325 4.31992 1.33325 7.99992C1.33325 11.6799 4.31992 14.6666 7.99992 14.6666C11.6799 14.6666 14.6666 11.6799 14.6666 7.99992C14.6666 4.31992 11.6799 1.33325 7.99992 1.33325ZM7.99992 13.3333C5.05992 13.3333 2.66659 10.9399 2.66659 7.99992C2.66659 5.05992 5.05992 2.66659 7.99992 2.66659C10.9399 2.66659 13.3333 5.05992 13.3333 7.99992C13.3333 10.9399 10.9399 13.3333 7.99992 13.3333Z"
-								/>
-							</svg>
-							Добавить контакт
-						</button>
-					</div>
-					<div class="flex flex-col items-center justify-center">
-						<button
-							class="w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]"
-							type="submit"
-						>
-							Сохранить
-						</button>
-						<button class="underline text-xs text-neutral-500" type="button">
-							Удалить клиента
-						</button>
-					</div>
-					<button
-						class="absolute top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4"
-						type="button"
-					>
-						<svg
-							width="17"
-							height="17"
-							viewBox="0 0 17 17"
-							fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M16.2333 1.73333L15.2667 0.766664L8.49997 7.53336L1.7333 0.766696L0.766637 1.73336L7.5333 8.50003L0.766664 15.2667L1.73333 16.2333L8.49997 9.46669L15.2666 16.2334L16.2333 15.2667L9.46663 8.50003L16.2333 1.73333Z"
-							/>
-						</svg>
-					</button>
-				</form>
-			</div>
-		</div> -->
-
-		<!-- ! remove modal -->
-		<!-- <div
-			id="js-remove-popup"
-			class="hidden w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden"
-		>
-			<div class="fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto">
-				<form class="py-6">
-					<div class="flex flex-col items-center gap-2 mb-6">
-						<h2 class="text-lg font-bold">Удалить клиента</h2>
-						<p class="w-68 text-xs text-neutral-400 text-center">
-							Вы действительно хотите удалить данного клиента?
-						</p>
-					</div>
-					<div class="flex flex-col items-center justify-center">
-						<button
-							class="w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]"
-							type="submit"
-						>
-							Удалить
-						</button>
-						<button class="underline text-xs text-neutral-500" type="button">
-							Отмена
-						</button>
-					</div>
-					<button
-						class="absolute top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4"
-					>
-						<svg
-							width="17"
-							height="17"
-							viewBox="0 0 17 17"
-							fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M16.2333 1.73333L15.2667 0.766664L8.49997 7.53336L1.7333 0.766696L0.766637 1.73336L7.5333 8.50003L0.766664 15.2667L1.73333 16.2333L8.49997 9.46669L15.2666 16.2334L16.2333 15.2667L9.46663 8.50003L16.2333 1.73333Z"
-							/>
-						</svg>
-					</button>
-				</form>
-			</div>
-		</div> -->
 	</body>
 </html>

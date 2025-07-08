@@ -1,5 +1,6 @@
 import { contactsAdd } from '../modules/contacts/contactsAdd';
 import { contactsItemSelect } from '../modules/contacts/contactsItemSelect';
+import { handleModalClientRemove } from '../modules/handlers/handleModalClientRemove';
 import { createInput } from './createInput';
 
 export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
@@ -86,7 +87,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 
 		if (target === formRemoveBtn) {
 			onClose(modal);
-			document.body.append(removeModal());
+			handleModalClientRemove(client.id);
 		}
 	};
 
@@ -136,21 +137,15 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		modal.append(modalOverlay);
 
 		if (client === null) {
-			console.log('Создание нового клиента');
 			formTitle.innerText = 'Новый клиент';
 
 			const handleClientAdd = e => {
 				e.preventDefault();
 
-				const surname = formInputSurname.value.trim(),
-					name = formInputName.value.trim(),
-					lastName = formInputLastName.value.trim();
-
 				const formData = {
-					surname,
-					name,
-					lastName,
-					fullName: `${surname} ${name} ${lastName}`,
+					surname: formInputSurname.value.trim(),
+					name: formInputName.value.trim(),
+					lastName: formInputLastName.value.trim(),
 					contacts: contactsAdd(formContactsList),
 				};
 
@@ -171,6 +166,21 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 			formInputName.value = name;
 			formInputLastName.value = lastName;
 
+			const handleClientChange = e => {
+				e.preventDefault();
+
+				const formData = {
+					surname: formInputSurname.value.trim(),
+					name: formInputName.value.trim(),
+					lastName: formInputLastName.value.trim(),
+					contacts: contactsAdd(formContactsList),
+				};
+
+				onSave(formData, modal);
+			};
+
+			modalForm.addEventListener('submit', handleClientChange);
+
 			formWrapTitle.append(formTitle, formTitleID);
 			formWrapActions.append(formSaveBtn, formRemoveBtn);
 
@@ -187,7 +197,6 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 
 		return modal;
 	} else {
-		console.log('Модалка удаления');
 		formWrapTitle.className = 'flex flex-col items-center gap-2 mb-6';
 
 		formTitle.innerText = 'Удалить клиента';

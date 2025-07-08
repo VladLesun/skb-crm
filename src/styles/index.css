@@ -3,6 +3,29 @@ button {
 	cursor: pointer;
 }
 
+a,
+button,
+input {
+	outline: none;
+}
+
+.sort-btn {
+	color: oklch(87% 0 0);
+	transition: color 0.3s ease-in-out;
+}
+
+.sort-btn svg {
+	transition: transform 0.3s ease-in-out;
+}
+
+.sort-btn_active {
+	color: oklch(60.6% 0.25 292.717);
+}
+
+.sort-btn_svg svg {
+	transform: rotate(-180deg);
+}
+
 .choices {
 	width: 100%;
 	max-width: 110px;

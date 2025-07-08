@@ -64,12 +64,14 @@ export const contactsItemSelect = (type, value) => {
 		}
 	});
 
-	contactsInput.addEventListener('input', () => {
-		if (contactsInput.value.trim() !== '') {
-			contactsRemove.classList.remove('hidden');
-		} else {
+	contactsInput.addEventListener('focus', () => {
+		contactsRemove.classList.remove('hidden');
+	});
+
+	contactsInput.addEventListener('blur', () => {
+		setTimeout(() => {
 			contactsRemove.classList.add('hidden');
-		}
+		}, 100);
 	});
 
 	contactsRemove.addEventListener('click', () => {
