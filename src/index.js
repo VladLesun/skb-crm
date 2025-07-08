@@ -1,57 +1,82 @@
 import { handleModalClientAdd } from './js/modules/handlers/handleModalClientAdd';
 import { renderClientList } from './js/renderClient/renderClient';
 import { renderMobileClientList } from './js/renderClient/renderMobileClientList';
-import { getClients } from './js/servers/servers';
-import { fio } from './js/utils/fio';
+import { getClients, searchClient } from './js/servers/servers';
+import { appendFio } from './js/utils/appendFio';
+import { debounce } from './js/utils/debounce';
+import { search } from './js/utils/search';
 import { sortClients } from './js/utils/sortClients';
-import { addClientBtnNode } from './js/vars/const';
+import { addClientBtnNode, searchInputNode } from './js/vars/const';
 
-export let clientList = [];
+export let clientList = [],
+	filteredClientList = [];
 let sortColumn = 'id',
 	sortColumnDir = true;
+
+const handleSearchClient = debounce(async () => {
+	const searchedClients = search(clientList, 'fio');
+	let result = await searchClient(searchedClients);
+	const resultWithFio = appendFio(result);
+	const sorted = sortClients(resultWithFio, sortColumn, sortColumnDir);
+
+	filteredClientList = sorted;
+	renderClientList(sorted);
+});
+
+const handleSortedClients = sortBtn => {
+	const sortBtnActive = document.querySelector('.sort-btn.sort-btn_active');
+	const sortBtnSvg = document.querySelector('.sort-btn.sort-btn_svg');
+	const sortBtnDataset = sortBtn.dataset.sort;
+
+	if (sortColumn === sortBtnDataset) {
+		sortColumnDir = !sortColumnDir;
+		if (!sortColumnDir) {
+			sortBtn.classList.remove('sort-btn_svg');
+		} else {
+			sortBtn.classList.add('sort-btn_svg');
+		}
+	} else {
+		sortBtnActive?.classList.remove('sort-btn_active');
+		sortBtnSvg?.classList.remove('sort-btn_svg');
+		sortColumn = sortBtnDataset;
+		sortColumnDir = true;
+		sortBtn.classList.add('sort-btn_active');
+		sortBtn.classList.add('sort-btn_svg');
+	}
+
+	const sortedClients = sortClients(
+		appendFio(filteredClientList),
+		sortColumn,
+		sortColumnDir
+	);
+
+	renderMobileClientList(sortedClients);
+	renderClientList(sortedClients);
+};
 
 const init = async () => {
 	const serverData = await getClients();
 
 	if (serverData) {
-		clientList = serverData;
-		for (const client of clientList) {
-			client.fio = fio(client);
-		}
-		clientList = sortClients(clientList, sortColumn, sortColumnDir);
+		clientList = appendFio(serverData);
+		filteredClientList = [...clientList];
 	}
 
-	document.body.addEventListener('click', ({ target }) => {
-		const sortBtn = target.closest('.sort-btn');
-		const sortBtnActive = document.querySelector('.sort-btn.sort-btn_active');
-		const sortBtnSvg = document.querySelector('.sort-btn.sort-btn_svg');
-		const sortBtnDataset = sortBtn.dataset.sort;
+	searchInputNode.addEventListener('input', handleSearchClient);
 
-		if (sortBtn) {
-			if (sortColumn === sortBtnDataset) {
-				sortColumnDir = !sortColumnDir;
-				if (!sortColumnDir) {
-					sortBtn.classList.remove('sort-btn_svg');
-				} else {
-					sortBtn.classList.add('sort-btn_svg');
-				}
-			} else {
-				sortBtnActive?.classList.remove('sort-btn_active');
-				sortBtnSvg?.classList.remove('sort-btn_svg');
-				sortColumn = sortBtnDataset;
-				sortColumnDir = true;
-				sortBtn.classList.add('sort-btn_active');
-				sortBtn.classList.add('sort-btn_svg');
+	document.body.addEventListener('click', ({ target }) => {
+		if (target.closest('.sort-btn')) {
+			if (!serverData) {
+				return;
 			}
 
-			const sortedClients = sortClients(clientList, sortColumn, sortColumnDir);
+			handleSortedClients(target.closest('.sort-btn'));
+		}
 
-			renderMobileClientList(sortedClients);
-			renderClientList(sortedClients);
+		if (target === addClientBtnNode) {
+			handleModalClientAdd();
 		}
 	});
-
-	addClientBtnNode.addEventListener('click', handleModalClientAdd);
 
 	renderMobileClientList(clientList);
 	renderClientList(clientList);

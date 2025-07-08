@@ -16,7 +16,7 @@ export const contactsItemSelect = (type, value) => {
 	contactsInput.className =
 		'w-full h-[37px] px-1 border-t border-b border-r solid border-[#c8c5d1] bg-neutral-100';
 	contactsRemove.className =
-		'absolute top-0 right-0 w-[27px] h-[37px] flex items-center justify-center bg-[#e7e5eb] text-[#B0B0B0] border solid border-[#c8c5d1] shrink-0 hidden';
+		'absolute z-2 top-0 right-0 w-[27px] h-[37px] flex items-center justify-center bg-[#e7e5eb] text-[#B0B0B0] border solid border-[#c8c5d1] shrink-0 hidden';
 
 	contactsInput.type = 'number';
 	contactsInput.placeholder = 'Введите данные';
@@ -71,7 +71,7 @@ export const contactsItemSelect = (type, value) => {
 	contactsInput.addEventListener('blur', () => {
 		setTimeout(() => {
 			contactsRemove.classList.add('hidden');
-		}, 100);
+		}, 300);
 	});
 
 	contactsRemove.addEventListener('click', () => {

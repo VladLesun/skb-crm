@@ -1,4 +1,3 @@
-import { clientList } from '../../..';
 import { createModalsWithForm } from '../../creators/createModals';
 import { renderClientList } from '../../renderClient/renderClient';
 import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
@@ -6,14 +5,27 @@ import { addClient, getClients } from '../../servers/servers';
 
 export const handleModalClientAdd = () => {
 	const onSave = async (formData, modalElement) => {
-		const newClient = await addClient(formData);
-		let newClientList = clientList.push(newClient);
+		// .disabled = true;
 
-		newClientList = await getClients();
-		renderMobileClientList(newClientList);
-		renderClientList(newClientList);
+		try {
+			await addClient(formData);
+			const updatedClientList = await getClients();
 
-		modalElement.remove();
+			renderMobileClientList(updatedClientList);
+			renderClientList(updatedClientList);
+
+			modalElement.remove();
+		} catch (error) {
+			console.log(
+				'error: ',
+				error.errors.errors.forEach(({ field, message }) => {
+					console.warn(`Ошибка в поле "${field}": ${message}`);
+				})
+			);
+			return;
+		} finally {
+			// .disabled = false;
+		}
 	};
 
 	const onClose = modalElement => {

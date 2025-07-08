@@ -1,4 +1,4 @@
-export const debounce = (fn, msec) => {
+export const debounce = (fn, msec = 500) => {
 	let lastCall = 0;
 	let lastCallTimer;
 

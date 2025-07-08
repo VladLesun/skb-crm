@@ -1,6 +1,5 @@
-export const sortClients = (clientsArray, prop, dir) => {
-	let copyClientList = [...clientsArray];
-	return copyClientList.sort((clientA, clientB) => {
+export const sortClients = (clientsArray, prop, dir) =>
+	[...clientsArray].sort((clientA, clientB) => {
 		if (
 			!dir == false
 				? clientA[prop] < clientB[prop]
@@ -8,4 +7,3 @@ export const sortClients = (clientsArray, prop, dir) => {
 		)
 			return -1;
 	});
-};
