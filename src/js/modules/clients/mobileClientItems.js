@@ -5,6 +5,8 @@ import { contactItem } from '../contacts/contactItem';
 import { handleModalClientChange } from '../handlers/handleModalClientChange';
 import { handleModalClientRemove } from '../handlers/handleModalClientRemove';
 
+const MAX_CONTACTS = 5;
+
 export const mobileClientItems = clientData =>
 	clientData.map(client => {
 		const { id, name, surname, lastName, contacts, createdAt, updatedAt } =
@@ -110,6 +112,30 @@ export const mobileClientItems = clientData =>
 			Удалить
 		`;
 
+		let visibleContactLinks = [],
+			hiddenContactLinks = [];
+
+		if (itemContactsItems.length === MAX_CONTACTS) {
+			visibleContactLinks = itemContactsItems;
+		} else if (itemContactsItems.length > MAX_CONTACTS) {
+			visibleContactLinks = itemContactsItems.slice(0, MAX_CONTACTS - 1);
+			hiddenContactLinks = itemContactsItems.slice(MAX_CONTACTS - 1);
+		}
+
+		if (hiddenContactLinks.length > 0) {
+			const contactsMoreBtn = document.createElement('button');
+			contactsMoreBtn.className =
+				'w-4 h-4 text-[8px] border solid border-violet-500 rounded-[50%]';
+			contactsMoreBtn.innerText = `+${hiddenContactLinks.length}`;
+
+			contactsMoreBtn.addEventListener('click', () => {
+				contactsMoreBtn.remove();
+				itemContactsList.append(...hiddenContactLinks);
+			});
+
+			visibleContactLinks.push(contactsMoreBtn);
+		}
+
 		document.body.addEventListener('click', ({ target }) => {
 			if (target === itemActionChangeBtn) {
 				handleModalClientChange(client);
@@ -123,7 +149,7 @@ export const mobileClientItems = clientData =>
 		itemTop.append(itemId, itemName, itemTabBtn);
 		itemCreateAt.append(itemCreateAtTitle, itemCreateAtDate, itemCreateAtTime);
 		itemUpdateAt.append(itemUpdateAtTitle, itemUpdateAtDate, itemUpdateAtTime);
-		itemContactsList.append(...itemContactsItems);
+		itemContactsList.append(...visibleContactLinks);
 		itemContacts.append(itemContactsTitle, itemContactsList);
 		itemActions.append(itemActionChangeBtn, itemActionRemoveBtn);
 		itemBottom.append(itemCreateAt, itemUpdateAt, itemContacts, itemActions);

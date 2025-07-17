@@ -5,6 +5,8 @@ import { contactItem } from '../contacts/contactItem';
 import { handleModalClientChange } from '../handlers/handleModalClientChange';
 import { handleModalClientRemove } from '../handlers/handleModalClientRemove';
 
+const MAX_CONTACTS = 5;
+
 export const desktopClientItems = clientData =>
 	clientData.map(client => {
 		const { id, name, surname, lastName, contacts, createdAt, updatedAt } =
@@ -25,8 +27,6 @@ export const desktopClientItems = clientData =>
 			itemActions = document.createElement('div'),
 			itemActionChangeBtn = document.createElement('button'),
 			itemActionRemoveBtn = document.createElement('button');
-
-		console.log('itemContactsItems: ', itemContactsItems.length);
 
 		item.className =
 			'h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300';
@@ -90,6 +90,30 @@ export const desktopClientItems = clientData =>
 			Удалить
 		`;
 
+		let visibleContactLinks = [],
+			hiddenContactLinks = [];
+
+		if (itemContactsItems.length === MAX_CONTACTS) {
+			visibleContactLinks = itemContactsItems;
+		} else if (itemContactsItems.length > MAX_CONTACTS) {
+			visibleContactLinks = itemContactsItems.slice(0, MAX_CONTACTS - 1);
+			hiddenContactLinks = itemContactsItems.slice(MAX_CONTACTS - 1);
+		}
+
+		if (hiddenContactLinks.length > 0) {
+			const contactsMoreBtn = document.createElement('button');
+			contactsMoreBtn.className =
+				'w-4 h-4 text-[8px] border solid border-violet-500 rounded-[50%]';
+			contactsMoreBtn.innerText = `+${hiddenContactLinks.length}`;
+
+			contactsMoreBtn.addEventListener('click', () => {
+				contactsMoreBtn.remove();
+				itemContactsList.append(...hiddenContactLinks);
+			});
+
+			visibleContactLinks.push(contactsMoreBtn);
+		}
+
 		document.body.addEventListener('click', ({ target }) => {
 			if (target === itemActionChangeBtn) {
 				handleModalClientChange(client);
@@ -104,7 +128,7 @@ export const desktopClientItems = clientData =>
 		itemNameWrap.append(itemName);
 		itemCreateAtWrap.append(itemCreateAtDate, itemCreateAtTime);
 		itemUpdateAtWrap.append(itemUpdateAtDate, itemUpdateAtTime);
-		itemContactsList.append(...itemContactsItems);
+		itemContactsList.append(...visibleContactLinks);
 		itemActions.append(itemActionChangeBtn, itemActionRemoveBtn);
 		item.append(
 			itemIdWrap,
