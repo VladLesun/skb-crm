@@ -2,17 +2,41 @@ import { createModalsWithForm } from '../../creators/createModals';
 import { renderClientList } from '../../renderClient/renderClient';
 import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
 import { changeClient, getClients } from '../../servers/servers';
+import { showClientErrors } from '../../utils/showClientErrors';
+import { showServerErrors } from '../../utils/showServerErrors';
+import {
+	validateClientData,
+	validateContacts,
+} from '../../utils/validateClient';
 
 export const handleModalClientChange = client => {
+	// .disabled = true;
+
 	const onSave = async (formData, modalElement) => {
-		await changeClient(client.id, formData);
+		const localErrors = [
+			...validateClientData(formData),
+			...validateContacts(formData.contacts),
+		];
 
-		let newClientList = await getClients();
+		if (localErrors.length > 0) {
+			showClientErrors(localErrors);
+			return;
+		}
 
-		renderMobileClientList(newClientList);
-		renderClientList(newClientList);
+		try {
+			await changeClient(client.id, formData);
 
-		modalElement.remove();
+			const updateClientList = await getClients();
+
+			renderMobileClientList(updateClientList);
+			renderClientList(updateClientList);
+
+			modalElement.remove();
+		} catch (error) {
+			showServerErrors(error);
+		} finally {
+			// .disabled = false;
+		}
 	};
 
 	const onClose = modalElement => {

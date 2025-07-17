@@ -13,9 +13,15 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		formTitleID = document.createElement('p'),
 		formTitleConfirm = document.createElement('p'),
 		formWrapInputs = document.createElement('div'),
+		formLabelSurname = document.createElement('label'),
 		formInputSurname = createInput('surname', 'Фамилия*'),
+		formErrorSurname = document.createElement('p'),
+		formLabelName = document.createElement('label'),
 		formInputName = createInput('name', 'Имя*'),
+		formErrorName = document.createElement('p'),
+		formLabelLastName = document.createElement('label'),
 		formInputLastName = createInput('middleName', 'Отчество'),
+		formErrorLastName = document.createElement('p'),
 		formWrapContacts = document.createElement('div'),
 		formContactsList = document.createElement('ul'),
 		formContactsAdd = document.createElement('button'),
@@ -38,6 +44,18 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		'w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]';
 	formCancelBtn.className = 'underline text-xs text-neutral-500';
 	formRemoveBtn.className = 'underline text-xs text-neutral-500';
+
+	//! errors classes
+	formLabelSurname.classList.add('relative');
+	formLabelName.classList.add('relative');
+	formLabelLastName.classList.add('relative');
+	formErrorSurname.classList.add('message-error');
+	formErrorName.classList.add('message-error');
+	formErrorLastName.classList.add('message-error');
+
+	formErrorSurname.dataset.errorFor = formInputSurname.name;
+	formErrorName.dataset.errorFor = formInputName.name;
+	formErrorLastName.dataset.errorFor = formInputLastName.name;
 
 	formContactsAdd.innerHTML = `
 		<svg
@@ -109,7 +127,14 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		formContactsAdd.id = 'contactsAdd';
 
 		const handlerContactAdd = () => {
-			formContactsList.append(contactsItemSelect());
+			const formContactsIndex = formContactsList.querySelectorAll('li').length;
+			const formContactItem = contactsItemSelect(
+				'phone',
+				'',
+				formContactsIndex
+			);
+
+			formContactsList.append(formContactItem);
 
 			if (formContactsList.getElementsByTagName('li').length > 9) {
 				formContactsAdd.classList.add('hidden');
@@ -125,7 +150,10 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 
 		formContactsAdd.addEventListener('click', handlerContactAdd);
 
-		formWrapInputs.append(formInputSurname, formInputName, formInputLastName);
+		formLabelSurname.append(formInputSurname, formErrorSurname);
+		formLabelName.append(formInputName, formErrorName);
+		formLabelLastName.append(formInputLastName, formErrorLastName);
+		formWrapInputs.append(formLabelSurname, formLabelName, formLabelLastName);
 		formWrapContacts.append(formContactsList, formContactsAdd);
 		modalForm.append(
 			formWrapTitle,
@@ -185,7 +213,14 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 			formWrapActions.append(formSaveBtn, formRemoveBtn);
 
 			contacts.map(({ type, value }) => {
-				formContactsList.append(contactsItemSelect(type, value));
+				const formContactsIndex =
+					formContactsList.querySelectorAll('li').length;
+				const formContactItem = contactsItemSelect(
+					type,
+					value,
+					formContactsIndex
+				);
+				formContactsList.append(formContactItem);
 
 				if (formContactsList.getElementsByTagName('li').length) {
 					formWrapContacts.classList.add('py-6');

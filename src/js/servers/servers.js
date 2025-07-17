@@ -29,9 +29,7 @@ export const addClient = async data => {
 		const errorBody = await res.json();
 		const error = new Error('Не удалось отправить данные на сервер...');
 
-		if (Array.isArray(errorBody.errors)) {
-			error.errors = errorBody;
-		}
+		error.errors = errorBody;
 
 		throw error;
 	}
@@ -60,25 +58,22 @@ export const removeClient = async id => {
 };
 
 export const changeClient = async (id, data) => {
-	try {
-		// showLoader()
+	const res = await fetch(`${API_URL}/api/clients/${id}`, {
+		method: 'PATCH',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data),
+	});
 
-		const res = await fetch(`${API_URL}/api/clients/${id}`, {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data),
-		});
+	if (!res.ok) {
+		const errorBody = await res.json();
+		const error = new Error('Не удалось изменить данные клиента...');
 
-		if (!res.ok) {
-			throw new Error('Не удалось изменить данные клиента...');
-		}
+		error.errors = errorBody;
 
-		return await res.json();
-	} catch (error) {
-		console.error(error.message);
-	} finally {
-		// hideLoader()
+		throw error;
 	}
+
+	return await res.json();
 };
 
 export const searchClient = async data => {

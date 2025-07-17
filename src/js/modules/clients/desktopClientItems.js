@@ -26,6 +26,8 @@ export const desktopClientItems = clientData =>
 			itemActionChangeBtn = document.createElement('button'),
 			itemActionRemoveBtn = document.createElement('button');
 
+		console.log('itemContactsItems: ', itemContactsItems.length);
+
 		item.className =
 			'h-15 grid grid-cols-[80px_218px_98px_98px_129px_auto] md:gap-1 lg:grid-cols-[90px_234px_152px_152px_148px_auto] border-b solid border-neutral-300';
 		itemIdWrap.className = 'flex items-center justify-center';

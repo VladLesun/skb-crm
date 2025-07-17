@@ -9,6 +9,8 @@ input {
 	outline: none;
 }
 
+/* ! sort */
+
 .sort-btn {
 	color: oklch(87% 0 0);
 	transition: color 0.3s ease-in-out;
@@ -25,6 +27,56 @@ input {
 .sort-btn_svg svg {
 	transform: rotate(-180deg);
 }
+
+/* ! errors */
+.message-error {
+	position: absolute;
+	top: 25px;
+	left: 0;
+	font-size: 12px;
+	color: #f00;
+}
+
+#contactsList .message-error {
+	top: 35px;
+}
+
+/* ! contact desc */
+.contact-desc {
+	position: absolute;
+	bottom: 25px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 500px;
+	max-width: max-content;
+	padding: 7px 17px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.contact-desc::after {
+	position: absolute;
+	bottom: -9px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 10px;
+	height: 10px;
+	content: '';
+	background-image: url('../image/arrow-down.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	opacity: 0.8;
+}
+
+.contact-desc_visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* ! choices */
 
 .choices {
 	width: 100%;

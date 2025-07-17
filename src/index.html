@@ -168,14 +168,16 @@
 
 			<div
 				id="js-lists"
-				class="w-full bg-white mx-auto mt-3.75 md:w-187 md:h-75 lg:w-246 lg:px-0"
+				class="w-full bg-white mx-auto mt-3.75 md:w-187 md:min-h-75 lg:w-246 lg:px-0"
 			>
 				<ul id="js-mobile-list" class="overflow-y-auto h-70 md:hidden"></ul>
 
-				<ul id="js-list" class="hidden overflow-y-auto h-75 md:block"></ul>
+				<ul id="js-list" class="hidden pt-4 md:block md:mb-40"></ul>
 			</div>
 
-			<div class="flex justify-center mt-10 pb-10">
+			<div
+				class="w-full flex justify-center py-10 md:fixed md:bottom-0 md:bg-neutral-100"
+			>
 				<button
 					id="js-add-client"
 					class="w-54 h-15 flex items-center justify-center gap-2.5 border solid border-violet-500 text-violet-500 font-medium"

@@ -2,13 +2,29 @@ import { createModalsWithForm } from '../../creators/createModals';
 import { renderClientList } from '../../renderClient/renderClient';
 import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
 import { addClient, getClients } from '../../servers/servers';
+import { showClientErrors } from '../../utils/showClientErrors';
+import { showServerErrors } from '../../utils/showServerErrors';
+import {
+	validateClientData,
+	validateContacts,
+} from '../../utils/validateClient';
 
 export const handleModalClientAdd = () => {
 	const onSave = async (formData, modalElement) => {
+		const localErrors = [
+			...validateClientData(formData),
+			...validateContacts(formData.contacts),
+		];
+
+		if (localErrors.length > 0) {
+			showClientErrors(localErrors);
+			return;
+		}
 		// .disabled = true;
 
 		try {
 			await addClient(formData);
+
 			const updatedClientList = await getClients();
 
 			renderMobileClientList(updatedClientList);
@@ -16,13 +32,7 @@ export const handleModalClientAdd = () => {
 
 			modalElement.remove();
 		} catch (error) {
-			console.log(
-				'error: ',
-				error.errors.errors.forEach(({ field, message }) => {
-					console.warn(`Ошибка в поле "${field}": ${message}`);
-				})
-			);
-			return;
+			showServerErrors(error);
 		} finally {
 			// .disabled = false;
 		}

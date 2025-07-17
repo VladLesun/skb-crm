@@ -1,6 +1,6 @@
 import choicesMin from '../../vars/choices.min';
 
-export const contactsItemSelect = (type, value) => {
+export const contactsItemSelect = (type, value, index) => {
 	const contactsItem = document.createElement('li'),
 		contactsSelect = document.createElement('select'),
 		contactsOptionPhone = document.createElement('option'),
@@ -8,18 +8,16 @@ export const contactsItemSelect = (type, value) => {
 		contactsOptionFacebook = document.createElement('option'),
 		contactsOptionVk = document.createElement('option'),
 		contactsOptionOther = document.createElement('option'),
+		contactsLabel = document.createElement('label'),
 		contactsInput = document.createElement('input'),
+		contactsError = document.createElement('p'),
 		contactsRemove = document.createElement('button');
 
 	contactsItem.className = 'relative flex items-center bg-neutral-300/60';
 	contactsSelect.className = 'js-choice';
-	contactsInput.className =
-		'w-full h-[37px] px-1 border-t border-b border-r solid border-[#c8c5d1] bg-neutral-100';
+
 	contactsRemove.className =
 		'absolute z-2 top-0 right-0 w-[27px] h-[37px] flex items-center justify-center bg-[#e7e5eb] text-[#B0B0B0] border solid border-[#c8c5d1] shrink-0 hidden';
-
-	contactsInput.type = 'number';
-	contactsInput.placeholder = 'Введите данные';
 
 	contactsRemove.type = 'button';
 	contactsRemove.innerHTML = `
@@ -47,6 +45,17 @@ export const contactsItemSelect = (type, value) => {
 	contactsOptionFacebook.innerText = 'VK';
 	contactsOptionVk.innerText = 'facebook';
 	contactsOptionOther.innerText = 'other';
+
+	contactsLabel.className = 'w-full';
+	contactsInput.className =
+		'w-full h-[37px] px-1 border-t border-b border-r solid border-[#c8c5d1] bg-neutral-100';
+	contactsError.className = 'message-error';
+
+	contactsInput.type = 'number';
+	contactsInput.name = `contacts[${index}].value`;
+	contactsInput.placeholder = 'Введите данные';
+
+	contactsError.dataset.errorFor = contactsInput.name;
 
 	contactsSelect.addEventListener('change', () => {
 		switch (contactsSelect.value) {
@@ -101,7 +110,8 @@ export const contactsItemSelect = (type, value) => {
 		contactsOptionVk,
 		contactsOptionOther
 	);
-	contactsItem.append(contactsSelect, contactsInput, contactsRemove);
+	contactsLabel.append(contactsInput, contactsError);
+	contactsItem.append(contactsSelect, contactsLabel, contactsRemove);
 
 	if (type) {
 		contactsSelect.value = type;
