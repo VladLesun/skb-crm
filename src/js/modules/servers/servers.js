@@ -1,9 +1,11 @@
+import { hidePreloader, showPreloader } from '../utils/preloader';
+
 const API_URL = 'http://localhost:3000';
 
 export const getClients = async () => {
-	try {
-		// showLoader()
+	showPreloader('js-preloader-list');
 
+	try {
 		const res = await fetch(`${API_URL}/api/clients`);
 
 		if (!res.ok) {
@@ -14,7 +16,7 @@ export const getClients = async () => {
 	} catch (error) {
 		console.error(error.message);
 	} finally {
-		// hideLoader()
+		hidePreloader('js-preloader-list');
 	}
 };
 
@@ -38,27 +40,19 @@ export const addClient = async data => {
 };
 
 export const removeClient = async id => {
-	try {
-		// showLoader()
+	const res = await fetch(`${API_URL}/api/clients/${id}`, {
+		method: 'DELETE',
+	});
 
-		const res = await fetch(`${API_URL}/api/clients/${id}`, {
-			method: 'DELETE',
-		});
-
-		if (!res.ok) {
-			throw new Error('Не удалось удалить клиента...');
-		}
-
-		return await res.json();
-	} catch (error) {
-		console.error(error.message);
-	} finally {
-		// hideLoader()
+	if (!res.ok) {
+		throw new Error('Не удалось удалить клиента...');
 	}
+
+	return await res.json();
 };
 
 export const changeClient = async (id, data) => {
-	const res = await fetch(`${API_URL}/api/clients/${id}`, {
+	const res = await fetch(`${API_URL}/api/client/${id}`, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
@@ -77,9 +71,9 @@ export const changeClient = async (id, data) => {
 };
 
 export const searchClient = async data => {
-	try {
-		// showLoader()
+	showPreloader('js-preloader-list');
 
+	try {
 		const ids = data.map(client => parseInt(client.id));
 		const results = await Promise.all(
 			ids.map(async id => {
@@ -98,6 +92,6 @@ export const searchClient = async data => {
 		console.error(error.message);
 		return [];
 	} finally {
-		// hideLoader()
+		hidePreloader('js-preloader-list');
 	}
 };

@@ -1,13 +1,9 @@
-import { createModalsWithForm } from '../../creators/createModals';
-import { renderClientList } from '../../renderClient/renderClient';
-import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
-import { addClient, getClients } from '../../servers/servers';
-import { showClientErrors } from '../../utils/showClientErrors';
-import { showServerErrors } from '../../utils/showServerErrors';
-import {
-	validateClientData,
-	validateContacts,
-} from '../../utils/validateClient';
+import { createModalsWithForm } from '../creators/createModals';
+import { renderClient } from '../render/renderClient';
+import { addClient, getClients } from '../servers/servers';
+import { showClientErrors } from '../utils/showClientErrors';
+import { showServerErrors } from '../utils/showServerErrors';
+import { validateClientData, validateContacts } from '../utils/validateClient';
 
 export const handleModalClientAdd = () => {
 	const onSave = async (formData, modalElement) => {
@@ -27,8 +23,7 @@ export const handleModalClientAdd = () => {
 
 			const updatedClientList = await getClients();
 
-			renderMobileClientList(updatedClientList);
-			renderClientList(updatedClientList);
+			renderClient(updatedClientList);
 
 			modalElement.remove();
 		} catch (error) {

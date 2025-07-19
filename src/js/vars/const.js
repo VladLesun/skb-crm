@@ -1,6 +1,4 @@
-export const clientLists = document.getElementById('js-lists'),
-	mobileClientListNode = document.getElementById('js-mobile-list'),
-	clientListNode = document.getElementById('js-list');
+export const clientListNode = document.getElementById('js-lists');
 
 export const addClientBtnNode = document.getElementById('js-add-client');
 

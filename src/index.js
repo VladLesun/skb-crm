@@ -1,17 +1,19 @@
 import { handleModalClientAdd } from './js/modules/handlers/handleModalClientAdd';
-import { renderClientList } from './js/renderClient/renderClient';
-import { renderMobileClientList } from './js/renderClient/renderMobileClientList';
-import { getClients, searchClient } from './js/servers/servers';
-import { appendFio } from './js/utils/appendFio';
-import { debounce } from './js/utils/debounce';
-import { search } from './js/utils/search';
-import { sortClients } from './js/utils/sortClients';
+import { renderClient } from './js/modules/render/renderClient';
+import { getClients, searchClient } from './js/modules/servers/servers';
+import { appendFio } from './js/modules/utils/appendFio';
+import { debounce } from './js/modules/utils/debounce';
+import { search } from './js/modules/utils/search';
+import { sortClients } from './js/modules/utils/sortClients';
 import { addClientBtnNode, searchInputNode } from './js/vars/const';
 
 export let clientList = [],
 	filteredClientList = [];
+
 let sortColumn = 'id',
 	sortColumnDir = true;
+
+let currentScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
 
 const handleSearchClient = debounce(async () => {
 	const searchedClients = search(clientList, 'fio');
@@ -20,7 +22,7 @@ const handleSearchClient = debounce(async () => {
 	const sorted = sortClients(resultWithFio, sortColumn, sortColumnDir);
 
 	filteredClientList = sorted;
-	renderClientList(sorted);
+	renderClient(sorted);
 });
 
 const handleSortedClients = sortBtn => {
@@ -50,8 +52,7 @@ const handleSortedClients = sortBtn => {
 		sortColumnDir
 	);
 
-	renderMobileClientList(sortedClients);
-	renderClientList(sortedClients);
+	renderClient(sortedClients);
 };
 
 const init = async () => {
@@ -61,6 +62,15 @@ const init = async () => {
 		clientList = appendFio(serverData);
 		filteredClientList = [...clientList];
 	}
+
+	const handleResize = debounce(() => {
+		const newScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
+
+		if (newScreenMode !== currentScreenMode) {
+			currentScreenMode = newScreenMode;
+			renderClient(filteredClientList);
+		}
+	}, 100);
 
 	searchInputNode.addEventListener('input', handleSearchClient);
 
@@ -78,8 +88,9 @@ const init = async () => {
 		}
 	});
 
-	renderMobileClientList(clientList);
-	renderClientList(clientList);
+	window.addEventListener('resize', handleResize);
+
+	renderClient(filteredClientList);
 };
 
 init();

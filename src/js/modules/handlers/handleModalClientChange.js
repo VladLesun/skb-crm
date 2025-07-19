@@ -1,18 +1,13 @@
-import { createModalsWithForm } from '../../creators/createModals';
-import { renderClientList } from '../../renderClient/renderClient';
-import { renderMobileClientList } from '../../renderClient/renderMobileClientList';
-import { changeClient, getClients } from '../../servers/servers';
-import { showClientErrors } from '../../utils/showClientErrors';
-import { showServerErrors } from '../../utils/showServerErrors';
-import {
-	validateClientData,
-	validateContacts,
-} from '../../utils/validateClient';
+import { createModalsWithForm } from '../creators/createModals';
+import { renderClient } from '../render/renderClient';
+import { changeClient, getClients } from '../servers/servers';
+import { hidePreloader, showPreloader } from '../utils/preloader';
+import { showClientErrors } from '../utils/showClientErrors';
+import { showServerErrors } from '../utils/showServerErrors';
+import { validateClientData, validateContacts } from '../utils/validateClient';
 
 export const handleModalClientChange = client => {
-	// .disabled = true;
-
-	const onSave = async (formData, modalElement) => {
+	const onSave = async (formData, modalElement, sendBtn) => {
 		const localErrors = [
 			...validateClientData(formData),
 			...validateContacts(formData.contacts),
@@ -23,19 +18,22 @@ export const handleModalClientChange = client => {
 			return;
 		}
 
+		sendBtn.disabled = true;
+		showPreloader('js-preloader-btn');
+
 		try {
 			await changeClient(client.id, formData);
 
 			const updateClientList = await getClients();
 
-			renderMobileClientList(updateClientList);
-			renderClientList(updateClientList);
+			renderClient(updateClientList);
 
 			modalElement.remove();
 		} catch (error) {
 			showServerErrors(error);
 		} finally {
-			// .disabled = false;
+			sendBtn.disabled = false;
+			hidePreloader('js-preloader-btn');
 		}
 	};
 

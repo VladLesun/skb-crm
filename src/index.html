@@ -168,11 +168,14 @@
 
 			<div
 				id="js-lists"
-				class="w-full bg-white mx-auto mt-3.75 md:w-187 md:min-h-75 lg:w-246 lg:px-0"
+				class="relative w-full min-h-75 bg-white mx-auto mt-3.75 md:w-187 lg:w-246 lg:px-0"
 			>
-				<ul id="js-mobile-list" class="overflow-y-auto h-70 md:hidden"></ul>
-
-				<ul id="js-list" class="hidden pt-4 md:block md:mb-40"></ul>
+				<div
+					id="js-preloader-list"
+					class="absolute inset-0 flex items-center justify-center bg-transparent z-1 hidden"
+				>
+					<div class="spinner"></div>
+				</div>
 			</div>
 
 			<div

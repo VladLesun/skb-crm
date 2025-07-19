@@ -1,4 +1,4 @@
-import { searchInputNode } from '../vars/const';
+import { searchInputNode } from '../../vars/const';
 
 export const search = (
 	arr,

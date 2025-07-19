@@ -1,6 +1,6 @@
-import { contactsAdd } from '../modules/contacts/contactsAdd';
-import { contactsItemSelect } from '../modules/contacts/contactsItemSelect';
-import { handleModalClientRemove } from '../modules/handlers/handleModalClientRemove';
+import { contactsAdd } from '../contacts/contactsAdd';
+import { contactsItemSelect } from '../contacts/contactsItemSelect';
+import { handleModalClientRemove } from '../handlers/handleModalClientRemove';
 import { createInput } from './createInput';
 
 export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
@@ -29,7 +29,6 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		formSaveBtn = document.createElement('button'),
 		formCancelBtn = document.createElement('button'),
 		formRemoveBtn = document.createElement('button');
-
 	modal.className =
 		'w-full h-full fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center transition-opacity duration-300 ease-in-out overflow-hidden cursor-pointer';
 	modalOverlay.className =
@@ -41,7 +40,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 	formTitleConfirm.className = 'w-68 text-xs text-neutral-400 text-center';
 	formWrapActions.className = 'flex flex-col items-center justify-center';
 	formSaveBtn.className =
-		'w-37 h-11 mb-1 bg-violet-500 text-white text-base font-[600]';
+		'w-37 h-11 mb-1 flex items-center justify-center gap-1 bg-violet-500 text-white text-base font-[600]';
 	formCancelBtn.className = 'underline text-xs text-neutral-500';
 	formRemoveBtn.className = 'underline text-xs text-neutral-500';
 
@@ -70,7 +69,6 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		</svg>
 		Добавить контакт
 	`;
-	formSaveBtn.innerText = 'Сохранить';
 	formCancelBtn.innerText = 'Отмена';
 	formRemoveBtn.innerText = 'Удалить клиента';
 	modalClose.innerHTML = `
@@ -166,6 +164,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 
 		if (client === null) {
 			formTitle.innerText = 'Новый клиент';
+			formSaveBtn.innerText = 'Сохранить';
 
 			const handleClientAdd = e => {
 				e.preventDefault();
@@ -189,6 +188,15 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 
 			console.log('Изменение клиента', client);
 			formTitle.innerText = 'Изменить данные';
+			formSaveBtn.innerHTML = `
+				<div
+					id="js-preloader-btn"
+					class="flex items-center justify-center bg-transparent z-1 hidden"
+				>
+					<div class="spinner-btn-save spinner-btn"></div>
+				</div>
+				Сохранить
+			`;
 			formTitleID.innerText = `ID: ${id}`;
 			formInputSurname.value = surname;
 			formInputName.value = name;
@@ -204,7 +212,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 					contacts: contactsAdd(formContactsList),
 				};
 
-				onSave(formData, modal);
+				onSave(formData, modal, formSaveBtn);
 			};
 
 			modalForm.addEventListener('submit', handleClientChange);
@@ -237,6 +245,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		formTitle.innerText = 'Удалить клиента';
 		formTitleConfirm.innerText =
 			'Вы действительно хотите удалить данного клиента?';
+		formSaveBtn.innerText = 'Удалить';
 
 		const handleClientRemove = e => {
 			e.preventDefault();
