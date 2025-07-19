@@ -1,11 +1,15 @@
 import { handleModalClientAdd } from './js/modules/handlers/handleModalClientAdd';
 import { renderClient } from './js/modules/render/renderClient';
-import { getClients, searchClient } from './js/modules/servers/servers';
+import { getClients } from './js/modules/servers/servers';
 import { appendFio } from './js/modules/utils/appendFio';
 import { debounce } from './js/modules/utils/debounce';
 import { search } from './js/modules/utils/search';
 import { sortClients } from './js/modules/utils/sortClients';
-import { addClientBtnNode, searchInputNode } from './js/vars/const';
+import {
+	addClientBtnNode,
+	clientListNode,
+	searchInputNode,
+} from './js/vars/const';
 
 export let clientList = [],
 	filteredClientList = [];
@@ -17,9 +21,14 @@ let currentScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
 
 const handleSearchClient = debounce(async () => {
 	const searchedClients = search(clientList, 'fio');
-	let result = await searchClient(searchedClients);
-	const resultWithFio = appendFio(result);
+	await getClients();
+	const resultWithFio = appendFio(searchedClients);
 	const sorted = sortClients(resultWithFio, sortColumn, sortColumnDir);
+
+	if (sorted.length === 0) {
+		clientListNode.innerHTML = `<p class="absolute top-1/2 left-1/2  translate-[-50%]">К сожалению клиент не найден...</p>`;
+		return;
+	}
 
 	filteredClientList = sorted;
 	renderClient(sorted);

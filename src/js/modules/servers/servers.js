@@ -72,6 +72,7 @@ export const changeClient = async (id, data) => {
 
 export const searchClient = async data => {
 	showPreloader('js-preloader-list');
+	console.log('showPreloader: ', showPreloader);
 
 	try {
 		const ids = data.map(client => parseInt(client.id));

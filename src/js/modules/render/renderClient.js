@@ -9,6 +9,10 @@ export const renderClient = clientData => {
 	const clientList = document.createElement('ul');
 	const clientItems = createClientItems(copyClientData);
 
+	if (clientItems.length === 0) {
+		clientListNode.innerHTML = `<p class="absolute top-1/2 left-1/2  translate-[-50%]">Здесь нет клиентов, скорее добавьте нового клиента...</p>`;
+	}
+
 	if (window.innerWidth < 767) {
 		clientList.className = 'overflow-y-auto h-70';
 		clientList.append(...clientItems);
