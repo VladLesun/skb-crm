@@ -32,7 +32,8 @@ export const createClientItems = clientData =>
 		// mobile
 		const itemTop = document.createElement('div'),
 			itemTabBtn = document.createElement('button'),
-			itemBottom = document.createElement('ul'),
+			itemBottom = document.createElement('div'),
+			itemList = document.createElement('ul'),
 			itemCreateAt = document.createElement('li'),
 			itemCreateAtTitle = document.createElement('p'),
 			itemUpdateAt = document.createElement('li'),
@@ -119,8 +120,9 @@ export const createClientItems = clientData =>
 				'h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white';
 			itemId.className = 'text-xs text-neutral-300';
 			itemName.className = 'text-center text-[14px]';
-			itemTabBtn.className = 'block';
-			itemBottom.className = 'bg-neutral-100 p-3.75 text-[14px]';
+			itemTabBtn.className = 'accordion';
+			itemBottom.className = 'accordion__content';
+			itemList.className = 'bg-neutral-100 p-3.75 text-[14px]';
 			itemCreateAt.className = 'flex items-center mb-3';
 			itemCreateAtTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemCreateAtDate.className = 'mr-2';
@@ -129,7 +131,7 @@ export const createClientItems = clientData =>
 			itemUpdateAtTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemUpdateAtDate.className = 'mr-2';
 			itemUpdateAtTime.className = 'text-neutral-300';
-			itemContacts.className = 'flex items-center mb-6';
+			itemContacts.className = 'items-center mb-6';
 			itemContactsTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemContactsList.className = 'flex items-center gap-2';
 			itemActions.className = 'flex items-center gap-7.5';
@@ -156,6 +158,38 @@ export const createClientItems = clientData =>
 			itemUpdateAtTitle.innerText = 'Последние изменения';
 			itemContactsTitle.innerText = 'Контакты';
 
+			if (visibleContactLinks.length === 0) {
+				console.log('нет контактов');
+				itemContacts.style.display = 'none';
+			} else {
+				console.log('есть контакты');
+				itemContacts.style.display = 'flex';
+			}
+
+			const handleToggleHeight = () => {
+				document.querySelectorAll('.accordion.is-open').forEach(btn => {
+					if (btn !== itemTabBtn) {
+						btn.classList.remove('is-open');
+						const itemContent = btn
+							.closest('li')
+							?.querySelector('.accordion__content');
+						if (itemContent) {
+							itemContent.style.maxHeight = null;
+						}
+					}
+				});
+
+				itemTabBtn.classList.toggle('is-open');
+
+				if (itemTabBtn.classList.contains('is-open')) {
+					itemBottom.style.maxHeight = `${itemBottom.scrollHeight}px`;
+				} else {
+					itemBottom.style.maxHeight = null;
+				}
+			};
+
+			itemTabBtn.addEventListener('click', handleToggleHeight);
+
 			itemTop.append(itemId, itemName, itemTabBtn);
 			itemCreateAt.append(
 				itemCreateAtTitle,
@@ -170,7 +204,8 @@ export const createClientItems = clientData =>
 			itemContactsList.append(...visibleContactLinks);
 			itemContacts.append(itemContactsTitle, itemContactsList);
 			itemActions.append(itemActionChangeBtn, itemActionRemoveBtn);
-			itemBottom.append(itemCreateAt, itemUpdateAt, itemContacts, itemActions);
+			itemBottom.append(itemList);
+			itemList.append(itemCreateAt, itemUpdateAt, itemContacts, itemActions);
 			item.append(itemTop, itemBottom);
 		} else {
 			// ! desktop

@@ -35,10 +35,20 @@ input {
 	animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin {
-	to {
-		transform: rotate(360deg);
-	}
+/* ! accordion */
+.accordion {
+	display: block;
+	transition: transform 0.3s ease-in-out;
+}
+
+.accordion.is-open {
+	transform: rotate(-180deg);
+}
+
+.accordion__content {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease-in-out;
 }
 
 /* ! sort */
@@ -176,5 +186,11 @@ input {
 @media (min-width: 768px) {
 	.choices {
 		max-width: 123px;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
 	}
 }

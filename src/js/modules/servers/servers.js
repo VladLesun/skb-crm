@@ -52,7 +52,7 @@ export const removeClient = async id => {
 };
 
 export const changeClient = async (id, data) => {
-	const res = await fetch(`${API_URL}/api/client/${id}`, {
+	const res = await fetch(`${API_URL}/api/clients/${id}`, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
