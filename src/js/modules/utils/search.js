@@ -5,14 +5,14 @@ export const search = (
 	prop,
 	value = searchInputNode.value.toLowerCase().trim()
 ) => {
-	let resultList = [];
-	const clientListCopy = [...arr];
+	let resultArr = [];
+	const clientArrCopy = [...arr];
 
-	clientListCopy.map(client => {
+	clientArrCopy.map(client => {
 		if (String(client[prop]).toLowerCase().includes(String(value))) {
-			resultList.push(client);
+			resultArr.push(client);
 		}
 	});
 
-	return resultList;
+	return resultArr;
 };

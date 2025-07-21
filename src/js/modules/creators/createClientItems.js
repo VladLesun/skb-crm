@@ -93,7 +93,6 @@ export const createClientItems = clientData =>
 
 		if (window.innerWidth < 767) {
 			// ! mobile
-
 			item.className = 'first:border-t solid border-neutral-300';
 			itemTop.className =
 				'h-15 px-3.75 py-5 flex justify-between items-center gap-3 border-b solid border-neutral-300 bg-white';
@@ -110,7 +109,7 @@ export const createClientItems = clientData =>
 			itemUpdateAtTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemUpdateAtDate.className = 'mr-2';
 			itemUpdateAtTime.className = 'text-neutral-300';
-			itemContacts.className = 'items-center mb-6';
+			itemContacts.className = 'flex items-center mb-6';
 			itemContactsTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemContactsList.className = 'flex items-center gap-2';
 			itemActions.className = 'flex items-center gap-7.5';
@@ -137,13 +136,11 @@ export const createClientItems = clientData =>
 			itemUpdateAtTitle.innerText = 'Последние изменения';
 			itemContactsTitle.innerText = 'Контакты';
 
-			// if (contactLinks.length === 0) {
-			// 	console.log('нет контактов');
-			// 	itemContacts.style.display = 'none';
-			// } else {
-			// 	console.log('есть контакты');
-			// 	itemContacts.style.display = 'flex';
-			// }
+			if (contactLinks.length === 0) {
+				itemContactsTitle.innerText = 'У пользователя отсутствуют контакты';
+			} else {
+				itemContactsTitle.innerText = 'Контакты';
+			}
 
 			const handleToggleHeight = () => {
 				document.querySelectorAll('.accordion.is-open').forEach(btn => {
