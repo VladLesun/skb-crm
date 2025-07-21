@@ -24,9 +24,9 @@ export const handleModalClientChange = client => {
 		try {
 			await changeClient(client.id, formData);
 
-			const updateClientList = await getClients();
+			const updateClients = await getClients();
 
-			renderClient(updateClientList);
+			renderClient(updateClients);
 
 			modalElement.remove();
 		} catch (error) {

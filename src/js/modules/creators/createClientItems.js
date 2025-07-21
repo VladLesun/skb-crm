@@ -4,8 +4,7 @@ import { handleModalClientRemove } from '../handlers/handleModalClientRemove.js'
 import { fio } from '../utils/fio.js';
 import { formatDate } from '../utils/formatDate.js';
 import { formatTime } from '../utils/formatTime.js';
-
-const MAX_CONTACTS = 5;
+import { getMoreContactLinks } from '../utils/getMoreContactLinks.js';
 
 export const createClientItems = clientData =>
 	clientData.map(client => {
@@ -24,7 +23,11 @@ export const createClientItems = clientData =>
 			itemUpdateAtDate = document.createElement('p'),
 			itemUpdateAtTime = document.createElement('p'),
 			itemContactsList = document.createElement('ul'),
-			itemContactsItems = contactItem(contacts),
+			itemContactsElements = contactItem(contacts),
+			contactLinks = getMoreContactLinks(
+				itemContactsElements,
+				itemContactsList
+			),
 			itemActions = document.createElement('div'),
 			itemActionChangeBtn = document.createElement('button'),
 			itemActionRemoveBtn = document.createElement('button');
@@ -77,30 +80,6 @@ export const createClientItems = clientData =>
 			</svg>
 			Удалить
 		`;
-
-		let visibleContactLinks = [],
-			hiddenContactLinks = [];
-
-		if (itemContactsItems.length === MAX_CONTACTS) {
-			visibleContactLinks = itemContactsItems;
-		} else if (itemContactsItems.length > MAX_CONTACTS) {
-			visibleContactLinks = itemContactsItems.slice(0, MAX_CONTACTS - 1);
-			hiddenContactLinks = itemContactsItems.slice(MAX_CONTACTS - 1);
-		}
-
-		if (hiddenContactLinks.length > 0) {
-			const contactsMoreBtn = document.createElement('button');
-			contactsMoreBtn.className =
-				'w-4 h-4 text-[8px] border solid border-violet-500 rounded-[50%]';
-			contactsMoreBtn.innerText = `+${hiddenContactLinks.length}`;
-
-			contactsMoreBtn.addEventListener('click', () => {
-				contactsMoreBtn.remove();
-				itemContactsList.append(...hiddenContactLinks);
-			});
-
-			visibleContactLinks.push(contactsMoreBtn);
-		}
 
 		document.body.addEventListener('click', ({ target }) => {
 			if (target === itemActionChangeBtn) {
@@ -158,13 +137,13 @@ export const createClientItems = clientData =>
 			itemUpdateAtTitle.innerText = 'Последние изменения';
 			itemContactsTitle.innerText = 'Контакты';
 
-			if (visibleContactLinks.length === 0) {
-				console.log('нет контактов');
-				itemContacts.style.display = 'none';
-			} else {
-				console.log('есть контакты');
-				itemContacts.style.display = 'flex';
-			}
+			// if (contactLinks.length === 0) {
+			// 	console.log('нет контактов');
+			// 	itemContacts.style.display = 'none';
+			// } else {
+			// 	console.log('есть контакты');
+			// 	itemContacts.style.display = 'flex';
+			// }
 
 			const handleToggleHeight = () => {
 				document.querySelectorAll('.accordion.is-open').forEach(btn => {
@@ -201,7 +180,7 @@ export const createClientItems = clientData =>
 				itemUpdateAtDate,
 				itemUpdateAtTime
 			);
-			itemContactsList.append(...visibleContactLinks);
+			itemContactsList.append(...contactLinks);
 			itemContacts.append(itemContactsTitle, itemContactsList);
 			itemActions.append(itemActionChangeBtn, itemActionRemoveBtn);
 			itemBottom.append(itemList);
@@ -240,7 +219,7 @@ export const createClientItems = clientData =>
 			itemNameWrap.append(itemName);
 			itemCreateAtWrap.append(itemCreateAtDate, itemCreateAtTime);
 			itemUpdateAtWrap.append(itemUpdateAtDate, itemUpdateAtTime);
-			itemContactsList.append(...visibleContactLinks);
+			itemContactsList.append(...contactLinks);
 			itemActions.append(itemActionChangeBtn, itemActionRemoveBtn);
 			item.append(
 				itemIdWrap,

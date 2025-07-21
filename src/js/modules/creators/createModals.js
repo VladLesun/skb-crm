@@ -186,7 +186,6 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		} else {
 			const { id, surname, name, lastName, contacts } = client;
 
-			console.log('Изменение клиента', client);
 			formTitle.innerText = 'Изменить данные';
 			formSaveBtn.innerHTML = `
 				<div

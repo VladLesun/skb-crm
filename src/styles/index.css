@@ -51,6 +51,17 @@ input {
 	transition: max-height 0.3s ease-in-out;
 }
 
+/* ! contacts show */
+.hidden-contact {
+	opacity: 0;
+	transform: translateY(-10px);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.hidden-contact.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 /* ! sort */
 .sort-btn {
 	color: #d4d4d4;
