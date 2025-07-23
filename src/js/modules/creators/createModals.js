@@ -34,15 +34,17 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 	modalOverlay.className =
 		'fixed w-75 max-h-[90vh] bg-white md:w-112.5 overflow-y-auto cursor-auto';
 	modalClose.className =
-		'modalClose absolute z-10 top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4';
+		'modalClose absolute z-10 top-1 right-1 size-7 flex items-center justify-center text-neutral-500 md:top-4 md:right-4 active:text-neutral-300 md:hover:text-neutral-300 md:focus:text-neutral-300 transition-colors duration-300 ease-in-out';
 	modalForm.className = 'py-6';
 	formTitle.className = 'text-lg font-bold';
 	formTitleConfirm.className = 'w-68 text-xs text-neutral-400 text-center';
 	formWrapActions.className = 'flex flex-col items-center justify-center';
 	formSaveBtn.className =
-		'w-37 h-11 mb-1 flex items-center justify-center gap-1 bg-violet-500 text-white text-base font-[600]';
-	formCancelBtn.className = 'underline text-xs text-neutral-500';
-	formRemoveBtn.className = 'underline text-xs text-neutral-500';
+		'w-37 h-11 mb-1 flex items-center justify-center gap-1 border border-transparent bg-violet-500 text-white text-base font-[600] active:bg-violet-700 md:hover:bg-transparent md:hover:text-violet-500 md:hover:border-violet-500 md:focus:bg-transparent md:focus:text-violet-700 md:focus:border-violet-700 transition-colors transition-bg transition-border duration-300 ease-in-out';
+	formCancelBtn.className =
+		'underline text-xs text-neutral-500 active:text-[black] md:hover:text-neutral-300 md:focus:text-neutral-300 transition-colors duration-300 ease-in-out';
+	formRemoveBtn.className =
+		'underline text-xs text-neutral-500 active:text-[black] md:hover:text-neutral-300 md:focus:text-neutral-300 transition-colors duration-300 ease-in-out';
 
 	//! errors classes
 	formLabelSurname.classList.add('relative');
@@ -118,7 +120,7 @@ export const createModalsWithForm = ({ onSave, onClose }, client = null) => {
 		formContactsList.className =
 			'w-full flex-col gap-3.75 mb-6 px-3.75 md:px-7.5 hidden';
 		formContactsAdd.className =
-			'w-40 h-9 flex items-center justify-center gap-1 text-[14px]';
+			'w-40 h-9 flex items-center justify-center gap-1 text-[14px] active:text-violet-500 md:hover:text-violet-500 md:focus:text-violet-700 transition-colors duration-300 ease-in-out';
 
 		formWrapContacts.id = 'contactsWrap';
 		formContactsList.id = 'contactsList';

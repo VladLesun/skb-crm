@@ -14,7 +14,7 @@ export const renderClient = clientData => {
 	}
 
 	if (window.innerWidth < 767) {
-		clientList.className = 'overflow-y-auto h-70';
+		clientList.className = 'overflow-y-auto h-90';
 		clientList.append(...clientItems);
 		clientListNode.append(clientList);
 	} else {

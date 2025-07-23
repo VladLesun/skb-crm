@@ -113,8 +113,10 @@ export const createClientItems = clientData =>
 			itemContactsTitle.className = 'text-xs mr-2.5 text-neutral-300';
 			itemContactsList.className = 'flex items-center gap-2';
 			itemActions.className = 'flex items-center gap-7.5';
-			itemActionChangeBtn.className = 'flex items-center';
-			itemActionRemoveBtn.className = 'flex items-center';
+			itemActionChangeBtn.className =
+				'flex items-center active:text-violet-700 transition-colors duration-300 ease-in-out';
+			itemActionRemoveBtn.className =
+				'flex items-center active:text-[#F06A4D] transition-colors duration-300 ease-in-out';
 
 			itemTabBtn.innerHTML = `
 						<svg
@@ -208,9 +210,9 @@ export const createClientItems = clientData =>
 			itemActions.className =
 				'flex flex-col items-center justify-center gap-1 lg:flex-row lg:justify-start lg:gap-3';
 			itemActionChangeBtn.className =
-				'flex items-center text-[14px] md:self-start lg:self-center';
+				'flex items-center text-[14px] md:active:text-violet-700 md:hover:text-violet-500 md:focus:text-violet-500 md:self-start lg:self-center transition-colors duration-300 ease-in-out';
 			itemActionRemoveBtn.className =
-				'flex items-center text-[14px] md:self-start lg:self-center';
+				'flex items-center text-[14px] md:active:text-[#F06A4D] md:hover:text-[#F06A4D] md:focus:text-[#F06A4D] md:self-start lg:self-center transition-colors duration-300 ease-in-out';
 
 			itemIdWrap.append(itemId);
 			itemNameWrap.append(itemName);
