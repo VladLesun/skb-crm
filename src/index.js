@@ -17,78 +17,77 @@ export let clientList = [],
 let sortColumn = 'id',
 	sortColumnDir = true;
 
+let searchValue = '';
+
 let currentScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
 
-const handleSearchClient = debounce(async () => {
-	const searchedClients = search(clientList, 'fio');
-	await getClients();
-	const resultWithFio = appendFio(searchedClients);
-	const sorted = sortClients(resultWithFio, sortColumn, sortColumnDir);
+const refreshClientList = async () => {
+	const serverData = await getClients();
+	if (!serverData) return false;
 
-	if (sorted.length === 0) {
+	clientList = appendFio(serverData);
+	updateFilteredClientList();
+	return true;
+};
+
+const updateFilteredClientList = () => {
+	let baseList = [...clientList];
+
+	if (searchValue) {
+		baseList = search(baseList, 'fio', searchValue);
+	}
+
+	filteredClientList = sortClients(baseList, sortColumn, sortColumnDir);
+	renderClient(filteredClientList);
+};
+
+const handleSearchClient = debounce(async () => {
+	searchValue = searchInputNode.value.toLowerCase().trim();
+	const updateServerData = await refreshClientList();
+	if (!updateServerData) return;
+
+	if (filteredClientList.length === 0) {
 		clientListNode.innerHTML = `<p class="absolute top-1/2 left-1/2  translate-[-50%]">К сожалению клиент не найден...</p>`;
 		return;
 	}
-
-	filteredClientList = sorted;
-	renderClient(sorted);
 });
 
-const handleSortedClients = sortBtn => {
+const handleSortedClients = async sortBtn => {
 	const sortBtnActive = document.querySelector('.sort-btn.sort-btn_active');
 	const sortBtnSvg = document.querySelector('.sort-btn.sort-btn_svg');
 	const sortBtnDataset = sortBtn.dataset.sort;
 
 	if (sortColumn === sortBtnDataset) {
 		sortColumnDir = !sortColumnDir;
-		if (!sortColumnDir) {
-			sortBtn.classList.remove('sort-btn_svg');
-		} else {
-			sortBtn.classList.add('sort-btn_svg');
-		}
+		sortBtn.classList.toggle('sort-btn_svg', sortColumnDir);
 	} else {
 		sortBtnActive?.classList.remove('sort-btn_active');
 		sortBtnSvg?.classList.remove('sort-btn_svg');
 		sortColumn = sortBtnDataset;
 		sortColumnDir = true;
-		sortBtn.classList.add('sort-btn_active');
-		sortBtn.classList.add('sort-btn_svg');
+		sortBtn.classList.add('sort-btn_active', 'sort-btn_svg');
 	}
 
-	const sortedClients = sortClients(
-		appendFio(filteredClientList),
-		sortColumn,
-		sortColumnDir
-	);
-
-	renderClient(sortedClients);
+	updateFilteredClientList();
 };
 
-const init = async () => {
-	const serverData = await getClients();
+const handleResize = debounce(() => {
+	const newScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
 
-	if (serverData) {
-		clientList = appendFio(serverData);
-		filteredClientList = [...clientList];
+	if (newScreenMode !== currentScreenMode) {
+		currentScreenMode = newScreenMode;
+		updateFilteredClientList();
 	}
+}, 100);
 
-	const handleResize = debounce(() => {
-		const newScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
-
-		if (newScreenMode !== currentScreenMode) {
-			currentScreenMode = newScreenMode;
-			renderClient(filteredClientList);
-		}
-	}, 100);
+const init = async () => {
+	const updateServerData = await refreshClientList();
+	if (!updateServerData) return;
 
 	searchInputNode.addEventListener('input', handleSearchClient);
 
 	document.body.addEventListener('click', ({ target }) => {
 		if (target.closest('.sort-btn')) {
-			if (!serverData) {
-				return;
-			}
-
 			handleSortedClients(target.closest('.sort-btn'));
 		}
 
@@ -98,8 +97,6 @@ const init = async () => {
 	});
 
 	window.addEventListener('resize', handleResize);
-
-	renderClient(filteredClientList);
 };
 
 init();

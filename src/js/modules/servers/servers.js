@@ -1,6 +1,6 @@
 import { hidePreloader, showPreloader } from '../utils/preloader';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://skb-api.onrender.com';
 
 export const getClients = async () => {
 	showPreloader('js-preloader-list');

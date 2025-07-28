@@ -1,10 +1,5 @@
-import { searchInputNode } from '../../vars/const';
 
-export const search = (
-	arr,
-	prop,
-	value = searchInputNode.value.toLowerCase().trim()
-) => {
+export const search = (arr, prop, value) => {
 	let resultArr = [];
 	const clientArrCopy = [...arr];
 
