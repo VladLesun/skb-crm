@@ -71,12 +71,14 @@ const handleSortedClients = async sortBtn => {
 	updateFilteredClientList();
 };
 
-const handleResize = debounce(() => {
+const handleResize = debounce(async () => {
 	const newScreenMode = window.innerWidth < 767 ? 'mobile' : 'desktop';
 
 	if (newScreenMode !== currentScreenMode) {
 		currentScreenMode = newScreenMode;
-		updateFilteredClientList();
+
+		const updateServerData = await refreshClientList();
+		if (!updateServerData) return;
 	}
 }, 100);
 
